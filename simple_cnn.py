@@ -61,4 +61,12 @@ model.fit(X_train, y_train, validation_data=(X_test, y_test), nb_epoch=epochs, b
 scores = model.evaluate(X_test, y_test, verbose=0)
 print("Accuracy: %.2f%%" % (scores[1]*100))
 
+predict = model.predict(X_test[:12])
+print predict[:10]
+print "\n\nLABELS: " 
+print y_test[:10]
+
+model.save('trained_model.hdf5')
+
+
 
