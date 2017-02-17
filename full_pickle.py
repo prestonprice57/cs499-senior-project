@@ -7,9 +7,10 @@ from PIL import Image
 
 user_name="ec2-user"
 
+file_path = '/Users/prestonprice/Documents/cs499/kaggle/train/'
 # /home/ec2-user
-train_folders = ['/Users/prestonprice/Documents/cs499/kaggle/train/BET', '/Users/prestonprice/Documents/cs499/kaggle/train/ALB', '/Users/prestonprice/Documents/cs499/kaggle/train/DOL', '/Users/prestonprice/Documents/cs499/kaggle/train/LAG', '/Users/prestonprice/Documents/cs499/kaggle/train/NoF', '/Users/prestonprice/Documents/cs499/kaggle/train/OTHER', '/Users/prestonprice/Documents/cs499/kaggle/train/SHARK', '/Users/prestonprice/Documents/cs499/kaggle/train/YFT']
-test_folders = ['/Users/prestonprice/Documents/cs499/kaggle/test']
+train_folders = [file_path+'BET', file_path+'ALB', file_path+'DOL', file_path+'LAG', file_path+'NoF', file_path+'OTHER', file_path+'SHARK', file_path+'YFT']
+test_folders = [file_path+'test']
 
 img_scale=0.5
 img_width = int(1280*img_scale)
@@ -18,7 +19,6 @@ img_height=int(720*img_scale)
 
 def load_fish(folder):
 	image_files = os.listdir(folder)
-	num_data = 50
 	data = np.ndarray(shape=(len(image_files), img_height, img_width, 3), dtype=np.float32)
 
 	num_images = 0 

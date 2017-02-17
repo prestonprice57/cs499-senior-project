@@ -1,5 +1,6 @@
 kaggle/
 udacity/
+.DS_Store
 *.docx
 *.7z
 *.hdf5
