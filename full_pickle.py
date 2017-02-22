@@ -8,9 +8,10 @@ from PIL import Image
 user_name="ec2-user"
 
 file_path = '/Users/prestonprice/Documents/cs499/kaggle/train/'
+file_path_test = '/Users/prestonprice/Documents/cs499/kaggle/test'
 # /home/ec2-user
 train_folders = [file_path+'BET', file_path+'ALB', file_path+'DOL', file_path+'LAG', file_path+'NoF', file_path+'OTHER', file_path+'SHARK', file_path+'YFT']
-test_folders = [file_path+'test']
+test_folders = [file_path_test]
 
 img_scale=0.5
 img_width = int(1280*img_scale)
@@ -74,5 +75,5 @@ def pickle_fish(data_folders, force=False):
 
 	return dataset_names
 
-pickle_fish(train_folders)
-# pickle_fish(test_folders)
+# pickle_fish(train_folders)
+pickle_fish(test_folders)

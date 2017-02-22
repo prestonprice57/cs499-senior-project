@@ -5,4 +5,5 @@ yum-config-manager --enable epel
 yum install -y p7zip
 cp /usr/bin/7za /usr/bin/7z
 
-pip install numpy scipy h5py keras tensorflow
+pip install --upgrade pip
+sudo pip install numpy scipy h5py keras tensorflow
