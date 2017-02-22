@@ -1,5 +1,5 @@
 # Simple CNN model for CIFAR-10
-import numpy
+import numpy as np
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.layers import Dropout
@@ -23,21 +23,26 @@ train_data_file = '/home/ec2-user/random_data3058.hdf5'
 train_labels_file = '/home/ec2-user/random_labels3058.hdf5'
 test_file = '/home/ec2-user/test.hdf5'
 
-f = h5py.File(train_data_file, "r")
+test_max = 2558
+valid_max = 3058
+
+print "opening second file"
 f2 = h5py.File(train_labels_file, "r")
+y_train = f2['labels'][:test_max]
+y_valid = f2['labels'][test_max:valid_max]
+f2.close()
+
+print "opening 1st file"
+f = h5py.File(train_data_file, "r")
+X_train = f['dataset'][:test_max]
+X_valid = f['dataset'][test_max:valid_max]
+f.close()
 
 
-X_train = f['dataset'][:1000]
-X_valid = f['dataset'][1000:1100]
-
-y_train = f2['labels'][:1000]
-y_valid = f2['labels'][1000:1100]
 
 num_classes = y_valid.shape[1]
 
-f.close()
-f2.close()
-
+print "building model"
 model = Sequential()
 model.add(Convolution2D(32, 3, 3, input_shape=X_train.shape[1:], border_mode='same', activation='relu', W_constraint=maxnorm(3)))
 model.add(Dropout(0.2))
@@ -48,10 +53,11 @@ model.add(Dense(512, activation='relu', W_constraint=maxnorm(3)))
 model.add(Dropout(0.5))
 model.add(Dense(num_classes, activation='softmax'))
 # Compile model
-epochs = 50
+epochs = 20
 lrate = 0.01
 decay = lrate/epochs
 sgd = SGD(lr=lrate, momentum=0.9, decay=decay, nesterov=False)
+print "compiling model"
 model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
 print(model.summary())
 
@@ -65,18 +71,25 @@ print("Accuracy: %.2f%%" % (scores[1]*100))
 
 #### PREDICT
 f3 = h5py.File(test_file, "r")
-X_test = f3['dataset']
+X_test = f3['dataset'][:]
 f3.close()
 
+print "predicting..."
 predict = model.predict(X_test)
 # print predict[:10]
 # print "\n\nLABELS: " 
 # print y_valid[:10]
 
 model.save('trained_model.h5')
+f = h5py.File('/home/ec2-user/img_names.hdf5')
+img_names = f['names'][:]
+f.close()
 
 with open('predictions.csv', 'wb') as csvfile:
     writer = csv.writer(csvfile, delimiter=',')
-    writer.writerow(['ALB', 'BET', 'DOL', 'LAG', 'NoF', 'OTHER', 'SHARK', 'YFT'])
-    for p in predict:
-    	writer.writerow(p)
+    writer.writerow(['image', 'ALB', 'BET', 'DOL', 'LAG', 'NoF', 'OTHER', 'SHARK', 'YFT'])
+    for (i, p) in enumerate(predict):
+    	# PUT IMAGE TITLE HERE
+    	p = list(p)
+    	row = [img_names[i]] + p
+    	writer.writerow(row)
