@@ -55,22 +55,22 @@ X_valid = np.swapaxes(X_valid, 1, 3)
 
 model = Sequential()
 model.add(ZeroPadding2D((1,1),input_shape=X_train.shape[1:]))
-model.add(Convolution2D(64, 3, 3, activation='relu'))
+model.add(Convolution2D(32, 3, 3, activation='relu'))
 model.add(ZeroPadding2D((1,1)))
-model.add(Convolution2D(64, 3, 3, activation='relu'))
+model.add(Convolution2D(32, 3, 3, activation='relu'))
 model.add(MaxPooling2D((2,2), strides=(2,2)))
 
 model.add(ZeroPadding2D((1,1)))
-model.add(Convolution2D(128, 3, 3, activation='relu'))
+model.add(Convolution2D(64, 3, 3, activation='relu'))
 model.add(ZeroPadding2D((1,1)))
-model.add(Convolution2D(128, 3, 3, activation='relu'))
+model.add(Convolution2D(64, 3, 3, activation='relu'))
 model.add(MaxPooling2D((2,2), strides=(2,2)))
 
 
 model.add(Flatten())
-model.add(Dense(128, activation='relu'))
+model.add(Dense(64, activation='relu'))
 model.add(Dropout(0.5))
-model.add(Dense(128, activation='relu'))
+model.add(Dense(64, activation='relu'))
 model.add(Dropout(0.5))
 model.add(Dense(num_classes, activation='softmax'))
 
