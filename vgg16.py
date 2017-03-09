@@ -70,7 +70,7 @@ print "SHAPE IS: " + str(X_train.shape[1:])
 K.set_image_dim_ordering('th')
 
 model = Sequential()
-model.add(ZeroPadding2D((1,1),input_shape=X_train.shape[1:])
+model.add(ZeroPadding2D((1,1),input_shape=X_train.shape[1:]))
 model.add(Convolution2D(64, 3, 3, activation='relu'))
 model.add(ZeroPadding2D((1,1)))
 model.add(Convolution2D(64, 3, 3, activation='relu'))
