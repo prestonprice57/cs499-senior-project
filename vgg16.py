@@ -64,7 +64,7 @@ print "SHAPE IS: " + str(X_train.shape[1:])
 
 X_train = np.swapaxes(X_train, 1, 3)
 X_valid = np.swapaxes(X_valid, 1, 3)
-
+num_classes = y_valid.shape[1]
 
 # X_train = numpy.swapaxes(X_train, 2, 3)
 K.set_image_dim_ordering('th')
@@ -111,7 +111,7 @@ model.add(Dense(4096, activation='relu'))
 model.add(Dropout(0.5))
 model.add(Dense(4096, activation='relu'))
 model.add(Dropout(0.5))
-model.add(Dense(1000, activation='softmax'))
+model.add(Dense(num_classes, activation='softmax'))
 
 # Test pretrained model
 # model = VGG_16('vgg16_weights.h5')
