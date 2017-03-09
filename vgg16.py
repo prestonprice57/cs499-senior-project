@@ -28,15 +28,15 @@ train_labels_file = '/home/ubuntu/random_labels700.hdf5'
 train_max = 500
 valid_max = 600
 
-# def load_data(data_file, labels_file, train_start, train_end):
-#     X_train = HDF5Matrix(data_file, 'dataset', train_start, train_end)
-#     y_train = HDF5Matrix(labels_file, 'labels', train_start, train_end)
-#     return X_train, y_train
+def load_data(data_file, labels_file, train_start, train_end):
+    X_train = HDF5Matrix(data_file, 'dataset', train_start, train_end)
+    y_train = HDF5Matrix(labels_file, 'labels', train_start, train_end)
+    return X_train, y_train
 
-X_train = HDF5Matrix(train_data_file, 'dataset', 0, train_max)
+# X_train = HDF5Matrix(train_data_file, 'dataset', 0, train_max)
 X_valid = HDF5Matrix(train_data_file, 'dataset', train_max, valid_max)
 
-y_train = HDF5Matrix(train_labels_file, 'labels', 0, train_max)
+# y_train = HDF5Matrix(train_labels_file, 'labels', 0, train_max)
 y_valid = HDF5Matrix(train_labels_file, 'labels', train_max, valid_max)
 
 # f = h5py.File(train_data_file, "r")
@@ -60,9 +60,9 @@ y_valid = HDF5Matrix(train_labels_file, 'labels', train_max, valid_max)
 
 
 # num_classes = y_valid.shape[1]
-print "SHAPE IS: " + str(X_train.shape[1:])
+print "SHAPE IS: " + str(X_valid.shape[1:])
 
-X_train = np.swapaxes(X_train, 1, 3)
+# X_train = np.swapaxes(X_train, 1, 3)
 X_valid = np.swapaxes(X_valid, 1, 3)
 num_classes = y_valid.shape[1]
 
@@ -70,7 +70,7 @@ num_classes = y_valid.shape[1]
 K.set_image_dim_ordering('th')
 
 model = Sequential()
-model.add(ZeroPadding2D((1,1),input_shape=X_train.shape[1:]))
+model.add(ZeroPadding2D((1,1),input_shape=X_valid.shape[1:]))
 model.add(Convolution2D(64, 3, 3, activation='relu'))
 model.add(ZeroPadding2D((1,1)))
 model.add(Convolution2D(64, 3, 3, activation='relu'))
@@ -141,18 +141,19 @@ epochs = 25
 print(model.summary())
 
 
-# def load_data(data_file, labels_file, train_start, train_end, n_training_examples, n_test_examples)
-# current = 0
-# batch_size = 50
-# for i in xrange(epochs):
-# 	while (current+batch_size <= train_max):
-# 		X_train, y_train = load_data(train_data_file, train_labels_file, current, current+batch_size)
-# 		model.fit(X_train, y_train, validation_data=(X_valid, y_valid), nb_epoch=1, batch_size=batch_size)
+def load_data(data_file, labels_file, train_start, train_end, n_training_examples, n_test_examples)
+current = 0
+batch_size = 50
+for i in xrange(epochs):
+	while (current+batch_size <= train_max):
+		X_train, y_train = load_data(train_data_file, train_labels_file, current, current+batch_size)
+		model.fit(X_train, y_train, validation_data=(X_valid, y_valid), nb_epoch=1, batch_size=batch_size, shuffle="batch")
+		current += batch_size
 
 
 
 # Fit the model
-model.fit(X_train, y_train, validation_data=(X_valid, y_valid), nb_epoch=epochs, batch_size=50, shuffle="batch")
+# model.fit(X_train, y_train, validation_data=(X_valid, y_valid), nb_epoch=epochs, batch_size=50, shuffle="batch")
 # Final evaluation of the model
 scores = model.evaluate(X_test, y_test, verbose=0)
 print("Accuracy: %.2f%%" % (scores[1]*100))
