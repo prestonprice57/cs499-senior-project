@@ -81,7 +81,7 @@ predict = model.predict(X_test)
 # print y_valid[:10]
 
 model.save('trained_model.h5')
-f = h5py.File('/home/ec2-user/img_names.hdf5')
+f = h5py.File('/home/ubuntu/img_names.hdf5')
 img_names = f['names'][:]
 f.close()
 
