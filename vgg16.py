@@ -141,7 +141,6 @@ epochs = 25
 print(model.summary())
 
 
-def load_data(data_file, labels_file, train_start, train_end, n_training_examples, n_test_examples)
 current = 0
 batch_size = 50
 for i in xrange(epochs):
