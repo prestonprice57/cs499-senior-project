@@ -10,6 +10,7 @@ from keras.optimizers import SGD
 from keras.layers.core import Flatten, Dense, Dropout
 from keras.layers.convolutional import Convolution2D, MaxPooling2D, ZeroPadding2D
 from keras.utils import np_utils
+from keras.utils.io_utils import HDF5Matrix
 from keras import backend as K
 import h5py
 
@@ -24,27 +25,43 @@ img_height=int(720*img_scale)
 train_data_file = '/home/ec2-user/random_data3058.hdf5'
 train_labels_file = '/home/ec2-user/random_labels3058.hdf5'
 
-f = h5py.File(train_data_file, "r")
-f2 = h5py.File(train_labels_file, "r")
-
-
 test_max = 500
 valid_max = 600
 
-print "opening second file"
-f2 = h5py.File(train_labels_file, "r")
-y_train = f2['labels'][:test_max]
-y_valid = f2['labels'][test_max:valid_max]
-f2.close()
+# def load_data(data_file, labels_file, train_start, train_end, n_training_examples, n_test_examples)
+#     X_train = HDF5Matrix(data_file, 'dataset', train_start, train_start+n_training_examples)
+#     y_train = HDF5Matrix(labels_file, 'labels', train_start, train_start+n_training_examples)
+#     X_valid = HDF5Matrix(data_file, 'dataset', test_start, test_start+n_test_examples)
+#     y_valid = HDF5Matrix(labels_file, 'labels', test_start, test_start+n_test_examples)
+#     return X_train, y_train, X_test, y_test
 
-print "opening 1st file"
-f = h5py.File(train_data_file, "r")
-X_train = f['dataset'][:test_max]
-X_valid = f['dataset'][test_max:valid_max]
-f.close()
+X_train = HDF5Matrix(data_file, 'dataset', 0, test_max)
+X_valid = HDF5Matrix(data_file, 'dataset', test_max, valid_max)
+
+y_train = HDF5Matrix(labels_file, 'labels', 0, test_max)
+y_valid = HDF5Matrix(labels_file, 'labels', test_max, valid_max)
+
+# f = h5py.File(train_data_file, "r")
+# f2 = h5py.File(train_labels_file, "r")
 
 
-num_classes = y_valid.shape[1]
+# print "opening second file"
+# f2 = h5py.File(train_labels_file, "r")
+# y_train = f2['labels'][:test_max]
+# y_valid = f2['labels'][test_max:valid_max]
+# f2.close()
+
+# X_train = HDF5Matrix(train_data_file, 'dataset', train_start, train_start+n_training_examples, normalizer=normalize_data)
+
+
+# print "opening 1st file"
+# f = h5py.File(train_data_file, "r")
+# X_train = f['dataset'][:test_max]
+# X_valid = f['dataset'][test_max:valid_max]
+# f.close()
+
+
+# num_classes = y_valid.shape[1]
 print "SHAPE IS: " + str(X_train.shape[1:])
 
 X_train = np.swapaxes(X_train, 1, 3)
@@ -81,6 +98,17 @@ model.compile(optimizer=sgd, loss='categorical_crossentropy')
 # out = model.predict(X_test)
 # print np.argmax(out)
 
+# datagen = ImageDataGenerator(
+#         featurewise_center=True, # set input mean to 0 over the dataset
+#         samplewise_center=False, # set each sample mean to 0
+#         featurewise_std_normalization=True, # divide inputs by std of the dataset
+#         samplewise_std_normalization=False, # divide each input by its std
+#         zca_whitening=False, # apply ZCA whitening
+#         rotation_range=20, # randomly rotate images in the range (degrees, 0 to 180)
+#         width_shift_range=0.2, # randomly shift images horizontally (fraction of total width)
+#         height_shift_range=0.2, # randomly shift images vertically (fraction of total height)
+#         horizontal_flip=True, # randomly flip images
+#         vertical_flip=False) # randomly flip images
 
 # Compile model
 epochs = 25
