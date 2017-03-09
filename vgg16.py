@@ -26,7 +26,7 @@ train_data_file = '/home/ubuntu/random_data700.hdf5'
 train_labels_file = '/home/ubuntu/random_labels700.hdf5'
 
 train_max = 500
-valid_max = 600
+valid_max = 510
 
 def load_data(data_file, labels_file, train_start, train_end):
     X_train = HDF5Matrix(data_file, 'dataset', train_start, train_end)
