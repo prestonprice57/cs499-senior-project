@@ -67,6 +67,7 @@ print "SHAPE IS: " + str(X_train.shape[1:])
 
 
 # X_train = numpy.swapaxes(X_train, 2, 3)
+K.set_image_dim_ordering('th')
 
 model = Sequential()
 model.add(ZeroPadding2D((1,1),input_shape=(3,224,224)))
