@@ -142,11 +142,12 @@ print(model.summary())
 
 
 current = 0
-batch_size = 50
+batch_size = 20
 for i in xrange(epochs):
 	while (current+batch_size <= train_max):
 		X_train, y_train = load_data(train_data_file, train_labels_file, current, current+batch_size)
-		model.fit(X_train, y_train, validation_data=(X_valid, y_valid), nb_epoch=1, batch_size=batch_size, shuffle="batch")
+		model.fit(X_train, y_train, nb_epoch=1, batch_size=batch_size, shuffle="batch")
+		# model.fit(X_train, y_train, validation_data=(X_valid, y_valid), nb_epoch=1, batch_size=batch_size, shuffle="batch")
 		current += batch_size
 
 
