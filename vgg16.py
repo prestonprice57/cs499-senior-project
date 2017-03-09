@@ -62,8 +62,8 @@ y_valid = HDF5Matrix(train_labels_file, 'labels', train_max, valid_max)
 # num_classes = y_valid.shape[1]
 print "SHAPE IS: " + str(X_train.shape[1:])
 
-# X_train = np.swapaxes(X_train, 1, 3)
-# X_valid = np.swapaxes(X_valid, 1, 3)
+X_train = np.swapaxes(X_train, 1, 3)
+X_valid = np.swapaxes(X_valid, 1, 3)
 
 
 # X_train = numpy.swapaxes(X_train, 2, 3)
