@@ -75,7 +75,7 @@ model = Sequential()
 model.add(ZeroPadding2D((1,1),input_shape=(360, 640, 3)))
 model.add(Convolution2D(64, 3, 3, activation='relu'))
 model.add(ZeroPadding2D((1,1)))
-model.add(Convolution2D(8, 3, 3, activation='relu'))
+model.add(Convolution2D(16, 3, 3, activation='relu'))
 model.add(MaxPooling2D((2,2), strides=(2,2)))
 
 # model.add(ZeroPadding2D((1,1)))
@@ -163,7 +163,7 @@ print(scores)
 predict = model.predict(X_valid[:10])
 print predict[:10]
 print "\n\nLABELS: " 
-print y_test[:10]
+print y_valid[:10]
 
 model.save('vgg16_trained_model.h5')
 
