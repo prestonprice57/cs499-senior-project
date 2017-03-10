@@ -24,6 +24,7 @@ img_height=int(720*img_scale)
 
 train_data_file = '/home/ec2-user/random_data3058.hdf5'
 train_labels_file = '/home/ec2-user/random_labels3058.hdf5'
+test_file = '/home/ec2-user/test.hdf5'
 
 train_max = 500
 valid_max = 510
@@ -33,11 +34,12 @@ def load_data(data_file, labels_file, train_start, train_end):
     y_train = HDF5Matrix(labels_file, 'labels', train_start, train_end)
     return X_train, y_train
 
-# X_train = HDF5Matrix(train_data_file, 'dataset', 0, train_max)
-# X_valid = HDF5Matrix(train_data_file, 'dataset', train_max, valid_max)
+X_train = HDF5Matrix(train_data_file, 'dataset', 0, train_max)
+X_valid = HDF5Matrix(train_data_file, 'dataset', train_max, valid_max)
+X_test = HDF5Matrix(test_file, 'dataset')
 
-# y_train = HDF5Matrix(train_labels_file, 'labels', 0, train_max)
-# y_valid = HDF5Matrix(train_labels_file, 'labels', train_max, valid_max)
+y_train = HDF5Matrix(train_labels_file, 'labels', 0, train_max)
+y_valid = HDF5Matrix(train_labels_file, 'labels', train_max, valid_max)
 
 # f = h5py.File(train_data_file, "r")
 # f2 = h5py.File(train_labels_file, "r")
@@ -141,19 +143,19 @@ print(model.summary())
 
 current = 0
 batch_size = 16
-for i in xrange(epochs):
-	while (current+batch_size <= train_max):
-		X_train, y_train = load_data(train_data_file, train_labels_file, current, current+batch_size)
-		model.fit(X_train, y_train, nb_epoch=1, batch_size=batch_size, shuffle="batch")
-		# model.fit(X_train, y_train, validation_data=(X_valid, y_valid), nb_epoch=1, batch_size=batch_size, shuffle="batch")
-		current += batch_size
+# for i in xrange(epochs):
+# 	while (current+batch_size <= train_max):
+# 		X_train, y_train = load_data(train_data_file, train_labels_file, current, current+batch_size)
+# 		model.fit(X_train, y_train, nb_epoch=1, batch_size=batch_size, shuffle="batch")
+# 		# model.fit(X_train, y_train, validation_data=(X_valid, y_valid), nb_epoch=1, batch_size=batch_size, shuffle="batch")
+# 		current += batch_size
 
 
 
 # Fit the model
-# model.fit(X_train, y_train, validation_data=(X_valid, y_valid), nb_epoch=epochs, batch_size=50, shuffle="batch")
+model.fit(X_train, y_train, validation_data=(X_valid, y_valid), nb_epoch=epochs, batch_size=50, shuffle="batch")
 # Final evaluation of the model
-scores = model.evaluate(X_test, y_test, verbose=0)
+scores = model.evaluate(X_valid, y_valid, verbose=0)
 print("Accuracy: %.2f%%" % (scores[1]*100))
 
 predict = model.predict(X_test[:12])
