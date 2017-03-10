@@ -27,7 +27,7 @@ train_labels_file = '/home/ec2-user/random_labels3058.hdf5'
 test_file = '/home/ec2-user/test.hdf5'
 
 train_max = 2800
-valid_max = 358
+valid_max = 258
 
 def load_data(data_file, labels_file, train_start, train_end):
     X_train = HDF5Matrix(data_file, 'dataset', train_start, train_end)
