@@ -70,7 +70,7 @@ num_classes = 8
 K.set_image_dim_ordering('tf')
 
 model = Sequential()
-model.add(ZeroPadding2D((1,1),input_shape=(360, 640, 4)))
+model.add(ZeroPadding2D((1,1),input_shape=(360, 640, 3)))
 model.add(Convolution2D(64, 3, 3, activation='relu'))
 model.add(ZeroPadding2D((1,1)))
 model.add(Convolution2D(64, 3, 3, activation='relu'))
