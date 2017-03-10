@@ -84,6 +84,18 @@ model.add(ZeroPadding2D((1,1)))
 model.add(Convolution2D(32, 3, 3, activation='relu'))
 model.add(MaxPooling2D((2,2), strides=(2,2)))
 
+model.add(ZeroPadding2D((1,1),input_shape=(360, 640, 3)))
+model.add(Convolution2D(64, 3, 3, activation='relu'))
+model.add(ZeroPadding2D((1,1)))
+model.add(Convolution2D(64, 3, 3, activation='relu'))
+model.add(MaxPooling2D((2,2), strides=(2,2)))
+
+model.add(ZeroPadding2D((1,1),input_shape=(360, 640, 3)))
+model.add(Convolution2D(128, 3, 3, activation='relu'))
+model.add(ZeroPadding2D((1,1)))
+model.add(Convolution2D(128, 3, 3, activation='relu'))
+model.add(MaxPooling2D((2,2), strides=(2,2)))
+
 # model.add(ZeroPadding2D((1,1)))
 # model.add(Convolution2D(128, 3, 3, activation='relu'))
 # model.add(ZeroPadding2D((1,1)))
@@ -122,7 +134,7 @@ model.add(Dropout(0.5))
 model.add(Dense(num_classes, activation='softmax'))
 
 epochs = 150
-lrate = 0.01
+lrate = 0.1
 decay = lrate/epochs
 # Test pretrained model
 # model = VGG_16('vgg16_weights.h5')
@@ -151,7 +163,7 @@ print(model.summary())
 
 
 current = 0
-batch_size = 16
+batch_size = 8
 # for i in xrange(epochs):
 # 	while (current+batch_size <= train_max):
 # 		X_train, y_train = load_data(train_data_file, train_labels_file, current, current+batch_size)
