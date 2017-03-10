@@ -22,8 +22,8 @@ img_height=int(720*img_scale)
 # train_data_file = '/Users/prestonprice/Documents/cs499/random_data700.hdf5'
 # train_labels_file = '/Users/prestonprice/Documents/cs499/random_labels700.hdf5'
 
-train_data_file = '/home/ec2-user/random_data3085.hdf5'
-train_labels_file = '/home/ec2-user/random_labels3085.hdf5'
+train_data_file = '/home/ec2-user/random_data3058.hdf5'
+train_labels_file = '/home/ec2-user/random_labels3058.hdf5'
 
 train_max = 500
 valid_max = 510
