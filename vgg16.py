@@ -36,7 +36,7 @@ def load_data(data_file, labels_file, train_start, train_end):
 
 X_train = HDF5Matrix(train_data_file, 'dataset', 0, train_max)
 X_valid = HDF5Matrix(train_data_file, 'dataset', train_max, valid_max)
-X_test = HDF5Matrix(test_file, 'dataset')
+X_test = HDF5Matrix(test_file, 'dataset', 0, 1000)
 
 y_train = HDF5Matrix(train_labels_file, 'labels', 0, train_max)
 y_valid = HDF5Matrix(train_labels_file, 'labels', train_max, valid_max)
