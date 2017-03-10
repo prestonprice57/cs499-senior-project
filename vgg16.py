@@ -156,7 +156,7 @@ batch_size = 16
 model.fit(X_train, y_train, validation_data=(X_valid, y_valid), nb_epoch=epochs, batch_size=batch_size, shuffle="batch")
 # Final evaluation of the model
 scores = model.evaluate(X_valid, y_valid, verbose=0)
-print(scored)
+print(scores)
 
 predict = model.predict(X_valid[:10])
 print predict[:10]
