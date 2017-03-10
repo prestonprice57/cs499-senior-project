@@ -133,7 +133,7 @@ model.add(Dense(256, activation='relu', W_constraint=maxnorm(3)))
 model.add(Dropout(0.5))
 model.add(Dense(num_classes, activation='softmax'))
 
-epochs = 150
+epochs = 20
 lrate = 0.1
 decay = lrate/epochs
 # Test pretrained model
