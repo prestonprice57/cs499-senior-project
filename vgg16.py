@@ -75,7 +75,7 @@ model = Sequential()
 model.add(ZeroPadding2D((1,1),input_shape=(360, 640, 3)))
 model.add(Convolution2D(64, 3, 3, activation='relu'))
 model.add(ZeroPadding2D((1,1)))
-model.add(Convolution2D(32, 3, 3, activation='relu'))
+model.add(Convolution2D(8, 3, 3, activation='relu'))
 model.add(MaxPooling2D((2,2), strides=(2,2)))
 
 # model.add(ZeroPadding2D((1,1)))
