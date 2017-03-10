@@ -134,7 +134,7 @@ model.add(Dropout(0.5))
 model.add(Dense(num_classes, activation='softmax'))
 
 epochs = 20
-lrate = 0.1
+lrate = 0.0001
 decay = lrate/epochs
 # Test pretrained model
 # model = VGG_16('vgg16_weights.h5')
