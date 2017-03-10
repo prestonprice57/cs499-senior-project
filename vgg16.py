@@ -64,13 +64,13 @@ def load_data(data_file, labels_file, train_start, train_end):
 
 # X_train = np.swapaxes(X_train, 1, 3)
 # X_valid = np.swapaxes(X_valid, 1, 3)
-num_classes = y_valid.shape[1]
+num_classes = 8
 
 # X_train = numpy.swapaxes(X_train, 2, 3)
 K.set_image_dim_ordering('tf')
 
 model = Sequential()
-model.add(ZeroPadding2D((1,1),input_shape=X_valid.shape[1:]))
+model.add(ZeroPadding2D((1,1),input_shape=(360, 640, 4)))
 model.add(Convolution2D(64, 3, 3, activation='relu'))
 model.add(ZeroPadding2D((1,1)))
 model.add(Convolution2D(64, 3, 3, activation='relu'))
