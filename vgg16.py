@@ -113,9 +113,12 @@ model.add(Dense(256, activation='relu', W_constraint=maxnorm(3)))
 model.add(Dropout(0.5))
 model.add(Dense(num_classes, activation='softmax'))
 
+epochs = 25
+lrate = 0.01
+decay = lrate/epochs
 # Test pretrained model
 # model = VGG_16('vgg16_weights.h5')
-sgd = SGD(lr=0.1, decay=1e-6, momentum=0.9, nesterov=True)
+sgd = SGD(lr=lrate, decay=decay, momentum=0.9, nesterov=True)
 model.compile(optimizer=sgd, loss='categorical_crossentropy')
 # out = model.predict(X_test)
 # print np.argmax(out)
@@ -132,8 +135,6 @@ model.compile(optimizer=sgd, loss='categorical_crossentropy')
 #         horizontal_flip=True, # randomly flip images
 #         vertical_flip=False) # randomly flip images
 
-# Compile model
-epochs = 25
 # lrate = 0.01
 # decay = lrate/epochs
 # sgd = SGD(lr=lrate, momentum=0.9, decay=decay, nesterov=False)
@@ -149,7 +150,6 @@ batch_size = 16
 # 		model.fit(X_train, y_train, nb_epoch=1, batch_size=batch_size, shuffle="batch")
 # 		# model.fit(X_train, y_train, validation_data=(X_valid, y_valid), nb_epoch=1, batch_size=batch_size, shuffle="batch")
 # 		current += batch_size
-
 
 
 # Fit the model
