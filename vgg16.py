@@ -156,14 +156,25 @@ batch_size = 16
 model.fit(X_train, y_train, validation_data=(X_valid, y_valid), nb_epoch=epochs, batch_size=batch_size, shuffle="batch")
 # Final evaluation of the model
 scores = model.evaluate(X_valid, y_valid, verbose=0)
-print("Accuracy: %.2f%%" % (scores[1]*100))
+print(scored)
 
-predict = model.predict(X_test[:12])
+predict = model.predict(X_valid[:10])
 print predict[:10]
 print "\n\nLABELS: " 
 print y_test[:10]
 
 model.save('vgg16_trained_model.h5')
 
+f = h5py.File('/home/ec2-user/img_names.hdf5')
+img_names = f['names'][:]
+f.close()
 
+with open('predictions.csv', 'wb') as csvfile:
+    writer = csv.writer(csvfile, delimiter=',')
+    writer.writerow(['image', 'ALB', 'BET', 'DOL', 'LAG', 'NoF', 'OTHER', 'SHARK', 'YFT'])
+    for (i, p) in enumerate(predict):
+    	# PUT IMAGE TITLE HERE
+    	p = list(p)
+    	row = [img_names[i]] + p
+    	writer.writerow(row)
 
