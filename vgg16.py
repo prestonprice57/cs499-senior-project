@@ -161,7 +161,7 @@ batch_size = 16
 
 
 # Fit the model
-model.fit(X_train, y_train, validation_data=(X_valid, y_valid), nb_epoch=epochs, batch_size=batch_size, shuffle="batch")
+model.fit(X_train, y_train, validation_data=(X_valid, y_valid), nb_epoch=epochs, batch_size=batch_size)
 # Final evaluation of the model
 scores = model.evaluate(X_valid, y_valid, verbose=0)
 print(scores)
