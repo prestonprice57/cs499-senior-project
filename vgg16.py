@@ -22,8 +22,8 @@ img_height=int(720*img_scale)
 # train_data_file = '/Users/prestonprice/Documents/cs499/random_data700.hdf5'
 # train_labels_file = '/Users/prestonprice/Documents/cs499/random_labels700.hdf5'
 
-train_data_file = '/home/ubuntu/random_data700.hdf5'
-train_labels_file = '/home/ubuntu/random_labels700.hdf5'
+train_data_file = '/home/ec2-user/random_data3085.hdf5'
+train_labels_file = '/home/ec2-user/random_labels3085.hdf5'
 
 train_max = 500
 valid_max = 510
@@ -60,7 +60,7 @@ def load_data(data_file, labels_file, train_start, train_end):
 
 
 # num_classes = y_valid.shape[1]
-print "SHAPE IS: " + str(X_valid.shape[1:])
+# print "SHAPE IS: " + str(X_valid.shape[1:])
 
 # X_train = np.swapaxes(X_train, 1, 3)
 # X_valid = np.swapaxes(X_valid, 1, 3)
