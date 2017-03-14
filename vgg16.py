@@ -163,7 +163,7 @@ print(model.summary())
 
 
 current = 0
-batch_size = 32
+batch_size = 16
 # for i in xrange(epochs):
 # 	while (current+batch_size <= train_max):
 # 		X_train, y_train = load_data(train_data_file, train_labels_file, current, current+batch_size)
