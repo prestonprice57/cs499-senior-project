@@ -26,8 +26,8 @@ train_data_file = '/home/ec2-user/random_data3058.hdf5'
 train_labels_file = '/home/ec2-user/random_labels3058.hdf5'
 test_file = '/home/ec2-user/test.hdf5'
 
-train_max = 1500
-valid_max = 1700
+train_max = 2700
+valid_max = 3058
 
 def load_data(data_file, labels_file, train_start, train_end):
     X_train = HDF5Matrix(data_file, 'dataset', train_start, train_end)
@@ -127,9 +127,9 @@ model.add(MaxPooling2D((2,2), strides=(2,2)))
 # model.add(MaxPooling2D((2,2), strides=(2,2)))
 
 model.add(Flatten())
-model.add(Dense(512, activation='relu', W_constraint=maxnorm(3)))
+model.add(Dense(1024, activation='relu', W_constraint=maxnorm(3)))
 model.add(Dropout(0.5))
-model.add(Dense(256, activation='relu', W_constraint=maxnorm(3)))
+model.add(Dense(1024, activation='relu', W_constraint=maxnorm(3)))
 model.add(Dropout(0.5))
 model.add(Dense(num_classes, activation='softmax'))
 
@@ -182,6 +182,9 @@ predict = model.predict(X_valid[:10])
 print predict[:10]
 print "\n\nLABELS: " 
 print y_valid[:10]
+
+print "predicting..."
+predict = model.predict(X_test)
 
 model.save('vgg16_trained_model.h5')
 

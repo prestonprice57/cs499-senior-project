@@ -26,17 +26,12 @@ test_file = '/home/ec2-user/test.hdf5'
 test_max = 2558
 valid_max = 3058
 
-print "opening second file"
-f2 = h5py.File(train_labels_file, "r")
-y_train = f2['labels'][:test_max]
-y_valid = f2['labels'][test_max:valid_max]
-f2.close()
+X_train = HDF5Matrix(train_data_file, 'dataset', 0, train_max)
+X_valid = HDF5Matrix(train_data_file, 'dataset', train_max, valid_max)
+X_test = HDF5Matrix(test_file, 'dataset', 0, 1000)
 
-print "opening 1st file"
-f = h5py.File(train_data_file, "r")
-X_train = f['dataset'][:test_max]
-X_valid = f['dataset'][test_max:valid_max]
-f.close()
+y_train = HDF5Matrix(train_labels_file, 'labels', 0, train_max)
+y_valid = HDF5Matrix(train_labels_file, 'labels', train_max, valid_max)
 
 
 
@@ -66,13 +61,6 @@ model.fit(X_train, y_train, validation_data=(X_valid, y_valid), nb_epoch=epochs,
 # Final evaluation of the model
 scores = model.evaluate(X_valid, y_valid, verbose=0)
 print("Accuracy: %.2f%%" % (scores[1]*100))
-
-
-
-#### PREDICT
-f3 = h5py.File(test_file, "r")
-X_test = f3['dataset'][:]
-f3.close()
 
 print "predicting..."
 predict = model.predict(X_test)
