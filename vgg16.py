@@ -26,8 +26,8 @@ train_data_file = '/home/ec2-user/random_data3058.hdf5'
 train_labels_file = '/home/ec2-user/random_labels3058.hdf5'
 test_file = '/home/ec2-user/test.hdf5'
 
-train_max = 2700
-valid_max = 3058
+train_max = 1500
+valid_max = 1700
 
 def load_data(data_file, labels_file, train_start, train_end):
     X_train = HDF5Matrix(data_file, 'dataset', train_start, train_end)
@@ -163,7 +163,7 @@ print(model.summary())
 
 
 current = 0
-batch_size = 16
+batch_size = 64
 # for i in xrange(epochs):
 # 	while (current+batch_size <= train_max):
 # 		X_train, y_train = load_data(train_data_file, train_labels_file, current, current+batch_size)
