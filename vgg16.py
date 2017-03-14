@@ -127,14 +127,14 @@ model.add(MaxPooling2D((2,2), strides=(2,2)))
 # model.add(MaxPooling2D((2,2), strides=(2,2)))
 
 model.add(Flatten())
-model.add(Dense(512, activation='relu', W_constraint=maxnorm(3)))
+model.add(Dense(256, activation='relu', W_constraint=maxnorm(3)))
 model.add(Dropout(0.5))
 model.add(Dense(1024, activation='relu', W_constraint=maxnorm(3)))
 model.add(Dropout(0.5))
 model.add(Dense(num_classes, activation='softmax'))
 
-epochs = 20
-lrate = 0.0001
+epochs = 50
+lrate = 0.001
 decay = lrate/epochs
 # Test pretrained model
 # model = VGG_16('vgg16_weights.h5')
@@ -163,7 +163,7 @@ print(model.summary())
 
 
 current = 0
-batch_size = 8
+batch_size = 16
 # for i in xrange(epochs):
 # 	while (current+batch_size <= train_max):
 # 		X_train, y_train = load_data(train_data_file, train_labels_file, current, current+batch_size)
