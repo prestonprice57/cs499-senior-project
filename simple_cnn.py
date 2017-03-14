@@ -58,7 +58,7 @@ model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy
 print(model.summary())
 
 # Fit the model
-model.fit(X_train, y_train, validation_data=(X_valid, y_valid), nb_epoch=epochs, batch_size=32)
+model.fit(X_train, y_train, validation_data=(X_valid, y_valid), nb_epoch=epochs, batch_size=32, shuffle="batch")
 # Final evaluation of the model
 scores = model.evaluate(X_valid, y_valid, verbose=0)
 print("Accuracy: %.2f%%" % (scores[1]*100))
