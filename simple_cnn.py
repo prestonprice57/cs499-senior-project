@@ -9,6 +9,7 @@ from keras.optimizers import SGD
 from keras.layers.convolutional import Convolution2D
 from keras.layers.convolutional import MaxPooling2D
 from keras import backend as K
+from keras.utils.io_utils import HDF5Matrix
 import h5py
 import csv
 
