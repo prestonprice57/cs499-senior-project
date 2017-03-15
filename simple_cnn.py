@@ -72,7 +72,7 @@ model.add(Dropout(0.5))
 model.add(Dense(num_classes, activation='softmax'))
 
 # Compile model
-batch_size = 32
+batch_size = 16
 epochs = 20
 lrate = 0.005
 decay = lrate/epochs
