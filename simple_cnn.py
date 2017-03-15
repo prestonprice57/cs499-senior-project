@@ -82,15 +82,13 @@ model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy
 print(model.summary())
 
 datagen = ImageDataGenerator(
-    featurewise_center=True,
-    featurewise_std_normalization=True,
     rotation_range=20,
     width_shift_range=0.2,
     height_shift_range=0.2,
     zoom_range=0.25,
     horizontal_flip=True)
 
-datagen.fit(X_train)
+# datagen.fit(X_train)
 
 # Fit the model
 model.fit_generator(generator=datagen.flow(X_train, y_train, batch_size=batch_size, shuffle=False), samples_per_epoch=len(X_train), nb_epoch=epochs, validation_data=(X_valid, y_valid))
