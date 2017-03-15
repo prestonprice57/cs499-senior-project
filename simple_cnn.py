@@ -70,10 +70,7 @@ datagen = ImageDataGenerator(
 datagen.fit(X_train)
 
 # Fit the model
-model.fit_generator(datagen.flow(X_train, y_train, batch_size=32), 
-				validation_data=(X_valid, y_valid), 
-				samples_per_epoch=len(X_train), 
-				epochs=epochs)
+model.fit_generator(datagen.flow(X_train, y_train, batch_size=32), validation_data=(X_valid, y_valid), steps_per_epoch=len(X_train), epochs=epochs)
 # Final evaluation of the model
 scores = model.evaluate(X_valid, y_valid, verbose=0)
 print("Accuracy: %.2f%%" % (scores[1]*100))
