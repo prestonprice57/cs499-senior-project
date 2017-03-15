@@ -50,6 +50,7 @@ model.add(Dense(512, activation='relu', W_constraint=maxnorm(3)))
 model.add(Dropout(0.5))
 model.add(Dense(num_classes, activation='softmax'))
 # Compile model
+batch_size = 32
 epochs = 20
 lrate = 0.005
 decay = lrate/epochs
@@ -70,7 +71,7 @@ datagen = ImageDataGenerator(
 datagen.fit(X_train)
 
 # Fit the model
-model.fit_generator(generator=datagen.flow(X_train, y_train, batch_size=32, shuffle=False), samples_per_epoch=len(X_train), nb_epoch=epochs, validation_data=(X_valid, y_valid))
+model.fit_generator(generator=datagen.flow(X_train, y_train, batch_size=batch_size, shuffle=False), samples_per_epoch=len(X_train), nb_epoch=epochs, validation_data=(X_valid, y_valid))
 # Final evaluation of the model
 scores = model.evaluate(X_valid, y_valid, verbose=0)
 print("Accuracy: %.2f%%" % (scores[1]*100))
