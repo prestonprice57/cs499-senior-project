@@ -37,6 +37,7 @@ y_valid = HDF5Matrix(train_labels_file, 'labels', train_max, valid_max)
 
 
 num_classes = y_valid.shape[1]
+K.set_image_dim_ordering('tf')
 
 print "building model"
 model = Sequential()
