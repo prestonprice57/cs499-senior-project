@@ -139,7 +139,7 @@ decay = lrate/epochs
 # Test pretrained model
 # model = VGG_16('vgg16_weights.h5')
 sgd = SGD(lr=lrate, decay=decay, momentum=0.9, nesterov=True)
-model.compile(optimizer=sgd, loss='categorical_crossentropy')
+model.compile(optimizer=sgd, loss='categorical_crossentropy', metrics=['accuracy'])
 # out = model.predict(X_test)
 # print np.argmax(out)
 

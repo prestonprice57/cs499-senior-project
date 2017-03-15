@@ -70,9 +70,8 @@ predict = model.predict(X_test)
 # print y_valid[:10]
 
 model.save('trained_model.h5')
-f = h5py.File('/home/ubuntu/img_names.hdf5')
-img_names = f['names'][:]
-f.close()
+
+img_names = HDF5Matrix('/home/ec2-user/img_names.hdf5', 'names', 0, 1000)
 
 with open('predictions.csv', 'wb') as csvfile:
     writer = csv.writer(csvfile, delimiter=',')
