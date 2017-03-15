@@ -41,14 +41,36 @@ num_classes = y_valid.shape[1]
 
 print "building model"
 model = Sequential()
-model.add(Convolution2D(32, 3, 3, input_shape=X_train.shape[1:], border_mode='same', activation='relu', W_constraint=maxnorm(3)))
-model.add(Dropout(0.2))
-model.add(Convolution2D(32, 3, 3, activation='relu', border_mode='same', W_constraint=maxnorm(3)))
-model.add(MaxPooling2D(pool_size=(2, 2)))
+# model.add(Convolution2D(32, 3, 3, input_shape=X_train.shape[1:], border_mode='same', activation='relu', W_constraint=maxnorm(3)))
+# model.add(Dropout(0.2))
+# model.add(Convolution2D(32, 3, 3, activation='relu', border_mode='same', W_constraint=maxnorm(3)))
+# model.add(MaxPooling2D(pool_size=(2, 2)))
+# model.add(Flatten())
+# model.add(Dense(512, activation='relu', W_constraint=maxnorm(3)))
+# model.add(Dropout(0.5))
+# model.add(Dense(num_classes, activation='softmax'))
+
+
+
+model.add(ZeroPadding2D((1,1),input_shape=(360, 640, 3)))
+model.add(Convolution2D(64, 3, 3, activation='relu', W_constraint = maxnorm(3)))
+model.add(ZeroPadding2D((1,1)))
+model.add(Convolution2D(64, 3, 3, activation='relu', W_constraint = maxnorm(3)))
+model.add(MaxPooling2D((2,2), strides=(2,2)))
+
+model.add(ZeroPadding2D((1,1),input_shape=(360, 640, 3)))
+model.add(Convolution2D(64, 3, 3, activation='relu', W_constraint = maxnorm(3)))
+model.add(ZeroPadding2D((1,1)))
+model.add(Convolution2D(64, 3, 3, activation='relu', W_constraint = maxnorm(3)))
+model.add(MaxPooling2D((2,2), strides=(2,2)))
+
 model.add(Flatten())
-model.add(Dense(512, activation='relu', W_constraint=maxnorm(3)))
+model.add(Dense(256, activation='relu', W_constraint=maxnorm(3)))
+model.add(Dropout(0.5))
+model.add(Dense(1024, activation='relu', W_constraint=maxnorm(3)))
 model.add(Dropout(0.5))
 model.add(Dense(num_classes, activation='softmax'))
+
 # Compile model
 batch_size = 32
 epochs = 20
