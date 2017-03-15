@@ -10,6 +10,7 @@ from keras.layers.convolutional import Convolution2D
 from keras.layers.convolutional import MaxPooling2D
 from keras import backend as K
 from keras.utils.io_utils import HDF5Matrix
+from keras.preprocessing.image import ImageDataGenerator
 import h5py
 import csv
 
@@ -57,8 +58,23 @@ print "compiling model"
 model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
 print(model.summary())
 
+datagen = ImageDataGenerator(
+    featurewise_center=True,
+    featurewise_std_normalization=True,
+    rotation_range=20,
+    width_shift_range=0.2,
+    height_shift_range=0.2,
+    horizontal_flip=True,
+    zoom=0.25)
+
+datagen.fit(X_train)
+
 # Fit the model
-model.fit(X_train, y_train, validation_data=(X_valid, y_valid), nb_epoch=epochs, batch_size=32, shuffle="batch")
+model.fit_generator(datagen.flow(X_train, y_train, batch_size=32), 
+				validation_data=(X_valid, y_valid), 
+				samples_per_epoch=len(X_train), 
+				nb_epoch=epochs, 
+				shuffle="batch")
 # Final evaluation of the model
 scores = model.evaluate(X_valid, y_valid, verbose=0)
 print("Accuracy: %.2f%%" % (scores[1]*100))
