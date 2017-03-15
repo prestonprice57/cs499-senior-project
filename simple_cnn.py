@@ -65,7 +65,7 @@ datagen = ImageDataGenerator(
     width_shift_range=0.2,
     height_shift_range=0.2,
     horizontal_flip=True,
-    zoom=0.25)
+    zoom_range=0.25)
 
 datagen.fit(X_train)
 
