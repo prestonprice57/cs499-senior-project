@@ -73,7 +73,7 @@ datagen.fit(X_train)
 model.fit_generator(datagen.flow(X_train, y_train, batch_size=32), 
 				validation_data=(X_valid, y_valid), 
 				samples_per_epoch=len(X_train), 
-				nb_epoch=epochs)
+				epochs=epochs)
 # Final evaluation of the model
 scores = model.evaluate(X_valid, y_valid, verbose=0)
 print("Accuracy: %.2f%%" % (scores[1]*100))
