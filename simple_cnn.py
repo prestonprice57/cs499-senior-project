@@ -6,8 +6,7 @@ from keras.layers import Dropout
 from keras.layers import Flatten
 from keras.constraints import maxnorm
 from keras.optimizers import SGD
-from keras.layers.convolutional import Convolution2D
-from keras.layers.convolutional import MaxPooling2D
+from keras.layers.convolutional import Convolution2D, MaxPooling2D, ZeroPadding2D
 from keras import backend as K
 from keras.utils.io_utils import HDF5Matrix
 from keras.preprocessing.image import ImageDataGenerator
