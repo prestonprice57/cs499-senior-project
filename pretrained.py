@@ -62,8 +62,6 @@ if __name__ == "__main__":
     test_file = '/home/ec2-user/test.hdf5'
 
     X_test = HDF5Matrix(test_file, 'dataset', 0, 1000)
-    X_test = HDF5Matrix('/home/ec2-user/cs499-senior-project/vgg16_weights.h5', 'dataset')
-
 
     # Test pretrained model
     model = VGG_16('vgg16_weights.h5')
