@@ -3,11 +3,14 @@ from keras.layers.core import Flatten, Dense, Dropout
 from keras.layers.convolutional import Convolution2D, MaxPooling2D, ZeroPadding2D
 from keras.optimizers import SGD
 from keras.utils.io_utils import HDF5Matrix
+from keras import backend as K
 import cv2, numpy as np
 
 def VGG_16(weights_path=None):
+    K.set_image_dim_ordering('tf')
+
     model = Sequential()
-    model.add(ZeroPadding2D((1,1),input_shape=(3,360,640)))
+    model.add(ZeroPadding2D((1,1),input_shape=(360,640,3)))
     model.add(Convolution2D(64, 3, 3, activation='relu'))
     model.add(ZeroPadding2D((1,1)))
     model.add(Convolution2D(64, 3, 3, activation='relu'))
