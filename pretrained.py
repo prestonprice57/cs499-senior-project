@@ -54,7 +54,7 @@ def VGG_16(weights_path=None):
     model.add(Dense(1000, activation='softmax'))
 
     if weights_path:
-        model.load_weights(weights_path)
+        model.load_weights(weights_path, by_name=True)
 
     return model
 
