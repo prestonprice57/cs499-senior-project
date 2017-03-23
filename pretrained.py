@@ -61,8 +61,10 @@ def VGG_16(weights_path=None):
 if __name__ == "__main__":
     test_file = '/home/ec2-user/test.hdf5'
 
+    print 'swapping'
     X_test = HDF5Matrix(test_file, 'dataset', 0, 1000)
     X_test = np.swapaxes(X_test, 1, 3)
+    print 'swapped'
     
     # Test pretrained model
     model = VGG_16('vgg16_weights.h5')
