@@ -1,6 +1,6 @@
 from keras.models import Sequential
 from keras.layers.core import Flatten, Dense, Dropout
-from keras.layers.convolutional import Convolution2D, MaxPooling2D, ZeroPadding2D
+from keras.layers.convolutional import Conv2D, MaxPooling2D, ZeroPadding2D
 from keras.optimizers import SGD
 from keras.utils.io_utils import HDF5Matrix
 from keras import backend as K
