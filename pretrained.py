@@ -2,6 +2,7 @@ from keras.models import Sequential
 from keras.layers.core import Flatten, Dense, Dropout
 from keras.layers.convolutional import Convolution2D, MaxPooling2D, ZeroPadding2D
 from keras.optimizers import SGD
+from keras.utils.io_utils import HDF5Matrix
 import cv2, numpy as np
 
 def VGG_16(weights_path=None):
@@ -64,7 +65,7 @@ if __name__ == "__main__":
     sgd = SGD(lr=0.1, decay=1e-6, momentum=0.9, nesterov=True)
     model.compile(optimizer=sgd, loss='categorical_crossentropy')
     out = model.predict(X_test)
-    
+
     f = h5py.File('/home/ec2-user/img_names.hdf5')
     img_names = f['names'][:]
     f.close()
