@@ -7,10 +7,10 @@ from keras import backend as K
 import cv2, numpy as np
 
 def VGG_16(weights_path=None):
-    K.set_image_dim_ordering('th')
+    # K.set_image_dim_ordering('th')
 
     model = Sequential()
-    model.add(ZeroPadding2D((1,1),input_shape=(3,360,640)))
+    model.add(ZeroPadding2D((1,1),input_shape=(360,640,3)))
     model.add(Convolution2D(64, 3, 3, activation='relu'))
     model.add(ZeroPadding2D((1,1)))
     model.add(Convolution2D(64, 3, 3, activation='relu'))
@@ -63,9 +63,9 @@ if __name__ == "__main__":
 
     print 'swapping'
     X_test = HDF5Matrix(test_file, 'dataset', 0, 1000)
-    X_test = np.swapaxes(X_test, 1, 3)
+    # X_test = np.swapaxes(X_test, 1, 3)
     print 'swapped'
-    
+
     # Test pretrained model
     model = VGG_16('vgg16_weights.h5')
     sgd = SGD(lr=0.1, decay=1e-6, momentum=0.9, nesterov=True)
