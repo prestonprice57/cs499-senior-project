@@ -7,7 +7,7 @@ from keras import backend as K
 import cv2, numpy as np
 
 def VGG_16(weights_path=None):
-    K.set_image_dim_ordering('tf')
+    K.set_image_dim_ordering('th')
 
     model = Sequential()
     model.add(ZeroPadding2D((1,1),input_shape=(360,640,3)))
@@ -62,6 +62,8 @@ if __name__ == "__main__":
     test_file = '/home/ec2-user/test.hdf5'
 
     X_test = HDF5Matrix(test_file, 'dataset', 0, 1000)
+    X_test = HDF5Matrix('/home/ec2-user/cs499-senior-project/vgg16_weights.h5', 'dataset')
+
 
     # Test pretrained model
     model = VGG_16('vgg16_weights.h5')
