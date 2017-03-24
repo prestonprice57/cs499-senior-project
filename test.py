@@ -28,12 +28,22 @@ y_valid = HDF5Matrix(train_labels_file, 'labels', train_max, valid_max)
 
 model = VGG16(include_top=False, input_shape=(360, 640, 3))
 
-model.add(Flatten())
-model.add(Dense(4096, activation='relu'))
-model.add(Dropout(0.5))
-model.add(Dense(4096, activation='relu'))
-model.add(Dropout(0.5))
-model.add(Dense(8, activation='softmax'))
+
+# build a classifier model to put on top of the convolutional model
+top_model = Sequential()
+top_model.add(Flatten(input_shape=model.output_shape[1:]))
+top_model.add(Dense(4096, activation='relu'))
+top_model.add(Dropout(0.5))
+top_model.add(Dense(8, activation='softmax'))
+
+
+
+# model.add(Flatten())
+# model.add(Dense(4096, activation='relu'))
+# model.add(Dropout(0.5))
+# model.add(Dense(4096, activation='relu'))
+# model.add(Dropout(0.5))
+# model.add(Dense(8, activation='softmax'))
 
 epochs = 50
 lrate = 0.001
