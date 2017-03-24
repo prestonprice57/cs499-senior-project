@@ -43,8 +43,8 @@ preds = Dense(8, activation='softmax')(top_model)
 
 model = Model(initial_model.input, preds)
 
-for layer in model.layers[:19]:
-    layer.trainable = False
+# for layer in model.layers[:19]:
+#     layer.trainable = False
 # model.add(Flatten())
 # model.add(Dense(4096, activation='relu'))
 # model.add(Dropout(0.5))
