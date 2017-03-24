@@ -4,6 +4,8 @@ from keras.models import Sequential, Model
 from keras.layers.core import Flatten, Dense, Dropout
 from keras.optimizers import SGD
 from keras.utils.io_utils import HDF5Matrix
+import h5py
+import csv
 
 
 img_scale=0.5

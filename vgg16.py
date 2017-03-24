@@ -13,6 +13,7 @@ from keras.utils import np_utils
 from keras.utils.io_utils import HDF5Matrix
 from keras import backend as K
 import h5py
+import csv
 
 
 img_scale=0.5
