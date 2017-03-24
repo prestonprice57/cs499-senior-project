@@ -32,7 +32,7 @@ y_valid = HDF5Matrix(train_labels_file, 'labels', train_max, valid_max)
 
 
 with tf.device('/gpu:0'):
-    x = tf.placeholder(tf.float32, shape=(360, 640, 3))
+	x = tf.placeholder(tf.float32, shape=(360, 640, 3))
 	initial_model = VGG16(include_top=False, input_shape=(360, 640, 3))(x)
 	last = initial_model.output
 
