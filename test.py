@@ -29,20 +29,19 @@ y_train = HDF5Matrix(train_labels_file, 'labels', 0, train_max)
 y_valid = HDF5Matrix(train_labels_file, 'labels', train_max, valid_max)
 
 
-model = VGG16(include_top=False, input_shape=(360, 640, 3))
-
+initial_model = VGG16(include_top=False, input_shape=(360, 640, 3))
+last = initial_model.output
 
 # build a classifier model to put on top of the convolutional model
-top_model = Sequential()
-top_model.add(Flatten(input_shape=model.output_shape[1:]))
-top_model.add(Dense(4096, activation='relu'))
-top_model.add(Dropout(0.5))
-top_model.add(Dense(8, activation='softmax'))
+top_model = (Flatten(input_shape=model.output_shape[1:]))(last)
+top_model = (Dense(4096, activation='relu'))(top_model)
+top_model = (Dropout(0.5))(top_model)
+preds = (Dense(8, activation='softmax'))(top_model)
 
 
-model.add(top_model)
+model = Model(initial_model.input, preds)
 
-for layer in model.layers[:25]:
+for layer in model.layers[:19]:
     layer.trainable = False
 # model.add(Flatten())
 # model.add(Dense(4096, activation='relu'))
