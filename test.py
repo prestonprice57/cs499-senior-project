@@ -40,7 +40,10 @@ top_model.add(Dropout(0.5))
 top_model.add(Dense(8, activation='softmax'))
 
 
+model.add(top_model)
 
+for layer in model.layers[:25]:
+    layer.trainable = False
 # model.add(Flatten())
 # model.add(Dense(4096, activation='relu'))
 # model.add(Dropout(0.5))
@@ -61,7 +64,7 @@ print(model.summary())
 batch_size = 16
 
 # Fit the model
-model.fit(X_train, y_train, validation_data=(X_valid, y_valid), nb_epoch=epochs, batch_size=batch_size, shuffle="batch")
+model.fit(X_train, y_train, validation_data=(X_valid, y_valid), epochs=epochs, batch_size=batch_size, shuffle="batch")
 # Final evaluation of the model
 scores = model.evaluate(X_valid, y_valid, verbose=0)
 print(scores)
