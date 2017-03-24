@@ -60,7 +60,7 @@ model.compile(optimizer=sgd, loss='categorical_crossentropy', metrics=['accuracy
 
 print(model.summary())
 
-batch_size = 16
+batch_size = 32
 
 # Fit the model
 model.fit(X_train, y_train, validation_data=(X_valid, y_valid), epochs=epochs, batch_size=batch_size, shuffle="batch")
