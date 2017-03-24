@@ -17,8 +17,8 @@ train_data_file = '/home/ec2-user/random_data3058.hdf5'
 train_labels_file = '/home/ec2-user/random_labels3058.hdf5'
 test_file = '/home/ec2-user/test.hdf5'
 
-train_max = 500
-valid_max = 600
+train_max = 2958
+valid_max = 3058
 
 
 X_train = HDF5Matrix(train_data_file, 'dataset', 0, train_max)
@@ -50,7 +50,7 @@ for layer in model.layers[:19]:
 # model.add(Dropout(0.5))
 # model.add(Dense(8, activation='softmax'))
 
-epochs = 50
+epochs = 25
 lrate = 0.001
 decay = lrate/epochs
 # Test pretrained model
