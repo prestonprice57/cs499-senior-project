@@ -6,7 +6,7 @@ from keras.optimizers import SGD
 from keras.utils.io_utils import HDF5Matrix
 import h5py
 import csv
-
+import tensorflow as tf
 
 img_scale=0.5
 img_width = int(1280*img_scale)
@@ -31,58 +31,60 @@ y_train = HDF5Matrix(train_labels_file, 'labels', 0, train_max)
 y_valid = HDF5Matrix(train_labels_file, 'labels', train_max, valid_max)
 
 
-initial_model = VGG16(include_top=False, input_shape=(360, 640, 3))
-last = initial_model.output
+with tf.device('/gpu:0'):
+    x = tf.placeholder(tf.float32, shape=(360, 640, 3))
+	initial_model = VGG16(include_top=False, input_shape=(360, 640, 3))(x)
+	last = initial_model.output
 
-# build a classifier model to put on top of the convolutional model
-top_model = Flatten(input_shape=initial_model.output_shape[1:])(last)
-top_model = Dense(4096, activation='relu')(top_model)
-top_model = Dropout(0.5)(top_model)
-preds = Dense(8, activation='softmax')(top_model)
-
-
-model = Model(initial_model.input, preds)
-
-for layer in model.layers[:19]:
-    layer.trainable = False
-# model.add(Flatten())
-# model.add(Dense(4096, activation='relu'))
-# model.add(Dropout(0.5))
-# model.add(Dense(4096, activation='relu'))
-# model.add(Dropout(0.5))
-# model.add(Dense(8, activation='softmax'))
-
-epochs = 25
-lrate = 0.001
-decay = lrate/epochs
-# Test pretrained model
-# model = VGG_16('vgg16_weights.h5')
-sgd = SGD(lr=lrate, decay=decay, momentum=0.9, nesterov=True)
-model.compile(optimizer=sgd, loss='categorical_crossentropy', metrics=['accuracy'])
-
-print(model.summary())
-
-batch_size = 32
-
-# Fit the model
-model.fit(X_train, y_train, validation_data=(X_valid, y_valid), epochs=epochs, batch_size=batch_size, shuffle="batch")
-# Final evaluation of the model
-scores = model.evaluate(X_valid, y_valid, verbose=0)
-print(scores)
+	# build a classifier model to put on top of the convolutional model
+	top_model = Flatten(input_shape=initial_model.output_shape[1:])(last)
+	top_model = Dense(4096, activation='relu')(top_model)
+	top_model = Dropout(0.5)(top_model)
+	preds = Dense(8, activation='softmax')(top_model)
 
 
+	model = Model(initial_model.input, preds)
 
-model.save('vgg16_trained_model.h5')
+	for layer in model.layers[:19]:
+	    layer.trainable = False
+	# model.add(Flatten())
+	# model.add(Dense(4096, activation='relu'))
+	# model.add(Dropout(0.5))
+	# model.add(Dense(4096, activation='relu'))
+	# model.add(Dropout(0.5))
+	# model.add(Dense(8, activation='softmax'))
 
-f = h5py.File('/home/ec2-user/img_names.hdf5')
-img_names = f['names'][:]
-f.close()
+	epochs = 25
+	lrate = 0.001
+	decay = lrate/epochs
+	# Test pretrained model
+	# model = VGG_16('vgg16_weights.h5')
+	sgd = SGD(lr=lrate, decay=decay, momentum=0.9, nesterov=True)
+	model.compile(optimizer=sgd, loss='categorical_crossentropy', metrics=['accuracy'])
 
-with open('predictions.csv', 'wb') as csvfile:
-    writer = csv.writer(csvfile, delimiter=',')
-    writer.writerow(['image', 'ALB', 'BET', 'DOL', 'LAG', 'NoF', 'OTHER', 'SHARK', 'YFT'])
-    for (i, p) in enumerate(predict):
-    	# PUT IMAGE TITLE HERE
-    	p = list(p)
-    	row = [img_names[i]] + p
-    	writer.writerow(row)
+	print(model.summary())
+
+	batch_size = 32
+
+	# Fit the model
+	model.fit(X_train, y_train, validation_data=(X_valid, y_valid), epochs=epochs, batch_size=batch_size, shuffle="batch")
+	# Final evaluation of the model
+	scores = model.evaluate(X_valid, y_valid, verbose=0)
+	print(scores)
+
+
+
+	model.save('vgg16_trained_model.h5')
+
+	f = h5py.File('/home/ec2-user/img_names.hdf5')
+	img_names = f['names'][:]
+	f.close()
+
+	with open('predictions.csv', 'wb') as csvfile:
+	    writer = csv.writer(csvfile, delimiter=',')
+	    writer.writerow(['image', 'ALB', 'BET', 'DOL', 'LAG', 'NoF', 'OTHER', 'SHARK', 'YFT'])
+	    for (i, p) in enumerate(predict):
+	    	# PUT IMAGE TITLE HERE
+	    	p = list(p)
+	    	row = [img_names[i]] + p
+	    	writer.writerow(row)
