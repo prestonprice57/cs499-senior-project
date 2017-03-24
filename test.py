@@ -33,10 +33,10 @@ initial_model = VGG16(include_top=False, input_shape=(360, 640, 3))
 last = initial_model.output
 
 # build a classifier model to put on top of the convolutional model
-top_model = (Flatten(input_shape=model.output_shape[1:]))(last)
-top_model = (Dense(4096, activation='relu'))(top_model)
-top_model = (Dropout(0.5))(top_model)
-preds = (Dense(8, activation='softmax'))(top_model)
+top_model = Flatten(input_shape=model.output_shape[1:])(last)
+top_model = Dense(4096, activation='relu')(top_model)
+top_model = Dropout(0.5)(top_model)
+preds = Dense(8, activation='softmax')(top_model)
 
 
 model = Model(initial_model.input, preds)
