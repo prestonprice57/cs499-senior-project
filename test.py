@@ -1,5 +1,7 @@
 import numpy as np
 from keras.applications.vgg16 import VGG16
+from keras.models import Sequential
+from keras.layers.core import Flatten, Dense, Dropout
 from keras.utils.io_utils import HDF5Matrix
 
 
