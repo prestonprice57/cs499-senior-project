@@ -196,7 +196,7 @@ def predict(vgg=0):
     with open(pred_fn, 'wb') as csvfile:
         writer = csv.writer(csvfile, delimiter=',')
         writer.writerow(['image', 'ALB', 'BET', 'DOL', 'LAG', 'NoF', 'OTHER', 'SHARK', 'YFT'])
-        for (i, p) in enumerate(predict):
+        for (i, p) in enumerate(predictions):
             # PUT IMAGE TITLE HERE
             p = list(p)
             row = [os.path.basename(f_names[i])] + p
