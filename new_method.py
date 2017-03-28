@@ -12,6 +12,7 @@ from keras.applications import InceptionV3
 from keras.applications.resnet50 import identity_block, conv_block
 from keras.utils.layer_utils import convert_all_kernels_in_model
 from keras import optimizers
+from keras.callbacks import ModelCheckpoint
 
 
 px_mean = np.array([123.68, 116.779, 103.939]).reshape((3,1,1))
