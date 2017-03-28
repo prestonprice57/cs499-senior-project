@@ -163,7 +163,9 @@ aug = True
 dropout = 0.05
 clip = 0.01
 use_val = False
-    
+num_models = len(os.walk(saved_model_path).next()[2])
+
+
 def train():
 
 
@@ -176,7 +178,6 @@ def train():
 
     vgg.fit_full(train_path, nb_trn_samples=nb_full_train_samples, nb_epoch=nb_epoch, aug=aug)
 
-    num_models = len(os.walk(saved_model_path).next()[2])
     model_fn = saved_model_path + 'model' +  str(num_models) + '.h5'
     vgg.model.save(model_fn)
 
