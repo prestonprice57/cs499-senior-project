@@ -1,6 +1,7 @@
 import numpy as np
 
 from os.path import expanduser
+import os.path
 
 from keras.layers.normalization import BatchNormalization
 from keras.layers.core import Dense, Dropout, Flatten
