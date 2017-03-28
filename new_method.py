@@ -166,7 +166,7 @@ use_val = False
 num_models = len(os.walk(saved_model_path).next()[2])
 
 def train():
-    vgg = Vgg16BN(n_classes=nb_classes, lr=0.001, batch_size=batch_size, dropout=dropout)
+    vgg = Vgg16BN(n_classes=nb_classes, lr=0.1, batch_size=batch_size, dropout=dropout)
     vgg.build()
 
     model_fn = saved_model_path + '{val_loss:.2f}-loss_{epoch}epoch_vgg16'
