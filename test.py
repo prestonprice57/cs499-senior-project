@@ -38,10 +38,10 @@ last = initial_model.output
 top_model = Flatten(input_shape=initial_model.output_shape[1:])(last)
 top_model = Dense(4096, activation='relu')(top_model)
 top_model = Dropout(0.5)(top_model)
-preds = Dense(8, activation='softmax')(top_model)
+top_model = Dense(8, activation='softmax')(top_model)
 
 
-model = Model(initial_model.input, preds)
+model = Model(initial_model.input, top_model)
 
 # for layer in model.layers[:19]:
 #     layer.trainable = False
