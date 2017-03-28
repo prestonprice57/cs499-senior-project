@@ -140,29 +140,32 @@ class Vgg16BN():
                                                     class_mode=None, shuffle=False)
         return self.model.predict_generator(test_gen, val_samples=nb_test_samples), test_gen.filenames
 
+
+HOME_DIR = expanduser("~")
+
+train_path = HOME_DIR + '/train/'
+test_path = HOME_DIR + '/test/'
+saved_model_path = HOME_DIR + '/saved-models/'
+saved_pred_path = HOME_DIR + '/saved-preds/'
+# data
+batch_size = 16
+nb_split_train_samples = 3377
+nb_full_train_samples = 3777
+nb_valid_samples = 600
+nb_test_samples = 1000
+classes = ["ALB", "BET", "DOL", "LAG", "NoF", "OTHER", "SHARK", "YFT"]
+nb_classes = len(classes)
+
+# model
+nb_runs = 5
+nb_epoch = 10
+aug = True
+dropout = 0.05
+clip = 0.01
+use_val = False
+    
 def train():
-    HOME_DIR = expanduser("~")
 
-    train_path = HOME_DIR + '/train/'
-    test_path = HOME_DIR + '/test/'
-    saved_model_path = HOME_DIR + '/saved-models/'
-    saved_pred_path = HOME_DIR + '/saved-preds/'
-    # data
-    batch_size = 16
-    nb_split_train_samples = 3377
-    nb_full_train_samples = 3777
-    nb_valid_samples = 600
-    nb_test_samples = 1000
-    classes = ["ALB", "BET", "DOL", "LAG", "NoF", "OTHER", "SHARK", "YFT"]
-    nb_classes = len(classes)
-
-    # model
-    nb_runs = 5
-    nb_epoch = 10
-    aug = True
-    dropout = 0.05
-    clip = 0.01
-    use_val = False
 
     vgg = Vgg16BN(n_classes=nb_classes, lr=0.9, batch_size=batch_size, dropout=dropout)
     vgg.build()
