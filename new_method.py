@@ -144,6 +144,7 @@ HOME_DIR = expanduser("~")
 train_path = HOME_DIR + '/train/'
 test_path = HOME_DIR + '/test/'
 saved_model_path = HOME_DIR + '/saved-models/'
+saved_pred_path = HOME_DIR + '/saved-preds/'
 # data
 batch_size = 16
 nb_split_train_samples = 3377
@@ -170,9 +171,23 @@ ckpt = ModelCheckpoint(filepath=model_fn, monitor='val_loss',
 
 vgg.fit_full(train_path, nb_trn_samples=nb_full_train_samples, nb_epoch=nb_epoch, aug=aug)
 
+num_models = len(os.walk(saved_model_path).next()[2])
+model_fn = saved_model_path + 'model' +  str(num_models) + '.h5'
+vgg.save(model_fn)
+
+predictions, f_names = vgg.test(test_path, nb_test_samples, aug=aug)
 
 
-
+# img_names = HDF5Matrix('/home/ec2-user/img_names.hdf5', 'names', 0, 1000)
+pred_fn = saved_pred_path + 'prediction' + str(num_models) + '.csv'
+with open(pred_fn, 'wb') as csvfile:
+    writer = csv.writer(csvfile, delimiter=',')
+    writer.writerow(['image', 'ALB', 'BET', 'DOL', 'LAG', 'NoF', 'OTHER', 'SHARK', 'YFT'])
+    for (i, p) in enumerate(predict):
+        # PUT IMAGE TITLE HERE
+        p = list(p)
+        row = [os.path.basename(f_names[i])] + p
+        writer.writerow(row)
 
 
 
