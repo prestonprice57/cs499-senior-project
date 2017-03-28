@@ -192,7 +192,7 @@ def predict(vgg=0):
     predictions, f_names = vgg.test(test_path, nb_test_samples, aug=aug)
 
     # img_names = HDF5Matrix('/home/ec2-user/img_names.hdf5', 'names', 0, 1000)
-    pred_fn = saved_pred_path + 'prediction' + str(num_models) + '.csv'
+    pred_fn = saved_pred_path + 'prediction' + str(num_models-1) + '.csv'
     with open(pred_fn, 'wb') as csvfile:
         writer = csv.writer(csvfile, delimiter=',')
         writer.writerow(['image', 'ALB', 'BET', 'DOL', 'LAG', 'NoF', 'OTHER', 'SHARK', 'YFT'])
