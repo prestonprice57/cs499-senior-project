@@ -202,7 +202,7 @@ def predict(vgg=0):
             row = [os.path.basename(f_names[i])] + p
             writer.writerow(row)
 
-# vgg = train()
-predict()
+vgg = train()
+predict(vgg)
 
 
