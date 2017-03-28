@@ -8,7 +8,7 @@ from keras.layers.normalization import BatchNormalization
 from keras.layers.core import Dense, Dropout, Flatten
 from keras.layers import ZeroPadding2D, MaxPooling2D, GlobalAveragePooling2D, Convolution2D, AveragePooling2D
 from keras.layers import Input, Activation, Lambda
-from keras.models import Sequential, Model
+from keras.models import Sequential, Model, load_model
 from keras.preprocessing.image import ImageDataGenerator
 from keras.applications import InceptionV3
 from keras.applications.resnet50 import identity_block, conv_block
