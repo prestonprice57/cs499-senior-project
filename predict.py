@@ -19,7 +19,7 @@ num_models = len(os.walk(saved_model_path).next()[2])
 model_name = saved_model_path + 'model' + str(num_models-1) + '.h5'
 model = load_model(model_name)
 
-predictions, f_names = vgg.test(test_path, nb_test_samples, aug=aug)
+predictions, f_names = model.test(test_path, nb_test_samples, aug=aug)
 
 # img_names = HDF5Matrix('/home/ec2-user/img_names.hdf5', 'names', 0, 1000)
 pred_fn = saved_pred_path + 'prediction' + str(num_models) + '.csv'
