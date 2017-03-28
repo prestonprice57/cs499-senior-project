@@ -21,7 +21,7 @@ px_mean = np.array([123.68, 116.779, 103.939]).reshape((3,1,1))
 
 
 def preprocess(x):
-    x = x - np.array([123.68, 116.779, 103.939]).reshape((3,1,1))
+    x = x - px_mean
     return x[:, ::-1] # reverse axis bgr->rgb
 
 
@@ -177,8 +177,15 @@ def train():
     model_fn = saved_model_path + 'model' +  str(num_models) + '.h5'
     vgg.model.save(model_fn)
 
-    predictions, f_names = vgg.test(test_path, nb_test_samples, aug=aug)
+def predict():
+    model_name = saved_model_path + 'model' + str(num_models-1) + '.h5'
+    print(model_name)
+    model = load_model(model_name)
 
+    vgg = Vgg16BN()
+    vgg.model = model
+
+    predictions, f_names = vgg.test(test_path, nb_test_samples, aug=aug)
 
     # img_names = HDF5Matrix('/home/ec2-user/img_names.hdf5', 'names', 0, 1000)
     pred_fn = saved_pred_path + 'prediction' + str(num_models) + '.csv'
