@@ -199,6 +199,6 @@ def predict():
             writer.writerow(row)
 
 
-
+predict()
 
 
