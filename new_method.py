@@ -30,7 +30,7 @@ class Vgg16BN():
     The VGG16 Imagenet model with Batch Normalization for the Dense Layers
     """
     def __init__(self, size=(224, 224), n_classes=2, lr=0.001, batch_size=64, dropout=0.5):
-        self.weights_file = 'vgg16_bn.h5'  # download from: http://www.platform.ai/models/
+        self.weights_file = 'vgg16.h5'  # download from: http://www.platform.ai/models/
         self.size = size
         self.n_classes = n_classes
         self.lr = lr
