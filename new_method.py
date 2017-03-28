@@ -15,12 +15,12 @@ from keras.applications.resnet50 import identity_block, conv_block
 from keras.utils.layer_utils import convert_all_kernels_in_model
 from keras import optimizers
 from keras.callbacks import ModelCheckpoint
+from keras import backend as K
 
-
-px_mean = np.array([123.68, 116.779, 103.939]).reshape((3,1,1))
 
 
 def preprocess(x):
+    px_mean = np.array([123.68, 116.779, 103.939]).reshape((3,1,1))
     x = x - px_mean
     return x[:, ::-1] # reverse axis bgr->rgb
 
@@ -169,7 +169,7 @@ num_models = len(os.walk(saved_model_path).next()[2])
 def train():
 
 
-    vgg = Vgg16BN(n_classes=nb_classes, lr=0.9, batch_size=batch_size, dropout=dropout)
+    vgg = Vgg16BN(n_classes=nb_classes, lr=0.001, batch_size=batch_size, dropout=dropout)
     vgg.build()
 
     model_fn = saved_model_path + '{val_loss:.2f}-loss_{epoch}epoch_vgg16'
