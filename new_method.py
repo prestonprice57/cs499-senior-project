@@ -160,7 +160,7 @@ dropout = 0.05
 clip = 0.01
 use_val = False
 
-vgg = Vgg16BN(size=(270,480), n_classes=nb_classes, lr=0.9, batch_size=batch_size, dropout=dropout)
+vgg = Vgg16BN(n_classes=nb_classes, lr=0.9, batch_size=batch_size, dropout=dropout)
 vgg.build()
 
 model_fn = saved_model_path + '{val_loss:.2f}-loss_{epoch}epoch_vgg16'
