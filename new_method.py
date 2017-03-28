@@ -165,10 +165,7 @@ clip = 0.01
 use_val = False
 num_models = len(os.walk(saved_model_path).next()[2])
 
-
 def train():
-
-
     vgg = Vgg16BN(n_classes=nb_classes, lr=0.001, batch_size=batch_size, dropout=dropout)
     vgg.build()
 
@@ -181,13 +178,17 @@ def train():
     model_fn = saved_model_path + 'model' +  str(num_models) + '.h5'
     vgg.model.save(model_fn)
 
-def predict():
-    model_name = saved_model_path + 'model' + str(num_models-1) + '.h5'
-    print(model_name)
-    model = load_model(model_name)
+    return vgg
 
-    vgg = Vgg16BN()
-    vgg.model = model
+def predict(vgg=0):
+
+    if vgg == 0:
+        model_name = saved_model_path + 'model' + str(num_models-1) + '.h5'
+        print(model_name)
+        model = load_model(model_name)
+
+        vgg = Vgg16BN()
+        vgg.model = model
 
     predictions, f_names = vgg.test(test_path, nb_test_samples, aug=aug)
 
@@ -202,7 +203,7 @@ def predict():
             row = [os.path.basename(f_names[i])] + p
             writer.writerow(row)
 
-
-predict()
+vgg = train()
+predict(vgg)
 
 
