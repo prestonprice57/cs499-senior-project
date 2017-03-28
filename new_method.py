@@ -142,7 +142,7 @@ HOME_DIR = expanduser("~")
 
 train_path = HOME_DIR + '/train/'
 test_path = HOME_DIR + '/test/'
-
+saved_model_path = HOME_DIR + '/saved-models/'
 # data
 batch_size = 16
 nb_split_train_samples = 3377
