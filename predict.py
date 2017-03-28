@@ -8,6 +8,8 @@ from os.path import expanduser
 from keras.models import Sequential, Model
 from keras.models import load_model
 
+px_mean = np.array([123.68, 116.779, 103.939]).reshape((3,1,1))
+
 HOME_DIR = expanduser("~")
 
 test_path = HOME_DIR + '/test/'
