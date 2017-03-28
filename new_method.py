@@ -21,7 +21,7 @@ px_mean = np.array([123.68, 116.779, 103.939]).reshape((3,1,1))
 
 
 def preprocess(x):
-    x = x - px_mean
+    x = x - np.array([123.68, 116.779, 103.939]).reshape((3,1,1))
     return x[:, ::-1] # reverse axis bgr->rgb
 
 
