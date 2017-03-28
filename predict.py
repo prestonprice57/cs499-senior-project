@@ -1,5 +1,6 @@
 import numpy as np
 
+import new_method
 import csv
 import os.path
 from os.path import expanduser
