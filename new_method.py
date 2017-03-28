@@ -174,7 +174,7 @@ vgg.fit_full(train_path, nb_trn_samples=nb_full_train_samples, nb_epoch=nb_epoch
 
 num_models = len(os.walk(saved_model_path).next()[2])
 model_fn = saved_model_path + 'model' +  str(num_models) + '.h5'
-vgg.save(model_fn)
+vgg.model.save(model_fn)
 
 predictions, f_names = vgg.test(test_path, nb_test_samples, aug=aug)
 
