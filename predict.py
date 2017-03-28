@@ -15,7 +15,7 @@ nb_test_samples = 1000
 
 num_models = len(os.walk(saved_model_path).next()[2])
 
-model_name = 'model' + str(num_models-1) + '.h5'
+model_name = saved_model_path + 'model' + str(num_models-1) + '.h5'
 model = load_model(model_name)
 
 predictions, f_names = vgg.test(test_path, nb_test_samples, aug=aug)
