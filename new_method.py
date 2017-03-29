@@ -179,9 +179,9 @@ def train():
 
     return vgg
 
-def predict(vgg=0):
+def predict(vgg=None):
 
-    if vgg == 0:
+    if vgg == None:
         model_name = saved_model_path + 'model' + str(num_models-1) + '.h5'
         print(model_name)
         model = load_model(model_name)
@@ -202,7 +202,7 @@ def predict(vgg=0):
             row = [os.path.basename(f_names[i])] + p
             writer.writerow(row)
 
-# vgg = train()
-predict()
+vgg = train()
+predict(vgg)
 
 
