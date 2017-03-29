@@ -205,6 +205,7 @@ def predict(vgg=MISSING):
             writer.writerow(row)
 
 for i in xrange(6):
+    print "Creating model " + str(i) + " \n\n"
     vgg = train()
     predict(vgg)
 
