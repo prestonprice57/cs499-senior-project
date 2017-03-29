@@ -165,7 +165,7 @@ use_val = False
 num_models = len(os.walk(saved_model_path).next()[2])
 
 def train():
-    vgg = Vgg16BN(n_classes=nb_classes, lr=0.1, batch_size=batch_size, dropout=dropout)
+    vgg = Vgg16BN(n_classes=nb_classes, lr=1.0, batch_size=batch_size, dropout=dropout)
     vgg.build()
 
     model_fn = saved_model_path + '{val_loss:.2f}-loss_{epoch}epoch_vgg16'
@@ -189,7 +189,7 @@ def predict(vgg=0):
         vgg = Vgg16BN()
         vgg.model = model
 
-    predictions, f_names = vgg.test(test_path, nb_test_samples, aug=aug)
+    predictions, f_names = vgg.test(test_path, nb_test_samples, aug=False)
 
     # img_names = HDF5Matrix('/home/ec2-user/img_names.hdf5', 'names', 0, 1000)
     pred_fn = saved_pred_path + 'prediction' + str(num_models-1) + '.csv'
