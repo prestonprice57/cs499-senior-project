@@ -204,7 +204,8 @@ def predict(vgg=MISSING):
             row = [os.path.basename(f_names[i])] + p
             writer.writerow(row)
 
-vgg = train()
-predict(vgg)
+for i in xrange(6):
+    vgg = train()
+    predict(vgg)
 
 
