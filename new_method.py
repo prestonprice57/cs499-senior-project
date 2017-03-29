@@ -179,9 +179,11 @@ def train():
 
     return vgg
 
-def predict(vgg):
+MISSING = object()
 
-    if vgg == None:
+def predict(vgg=MISSING):
+
+    if vgg == MISSING:
         model_name = saved_model_path + 'model' + str(num_models-1) + '.h5'
         print(model_name)
         model = load_model(model_name)
