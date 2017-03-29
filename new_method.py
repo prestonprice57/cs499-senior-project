@@ -183,7 +183,7 @@ MISSING = object()
 
 def predict(vgg=MISSING):
 
-    if vgg == MISSING:
+    if vgg is MISSING:
         model_name = saved_model_path + 'model' + str(num_models-1) + '.h5'
         print(model_name)
         model = load_model(model_name)
