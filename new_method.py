@@ -159,13 +159,13 @@ nb_classes = len(classes)
 nb_runs = 5
 nb_epoch = 10
 aug = True
-dropout = 0.5
+dropout = 0.0
 clip = 0.01
 use_val = False
 num_models = len(os.walk(saved_model_path).next()[2])
 
 def train():
-    vgg = Vgg16BN(n_classes=nb_classes, lr=1.0, batch_size=batch_size, dropout=dropout)
+    vgg = Vgg16BN(n_classes=nb_classes, lr=0.1, batch_size=batch_size, dropout=dropout)
     vgg.build()
 
     model_fn = saved_model_path + '{val_loss:.2f}-loss_{epoch}epoch_vgg16'
@@ -179,7 +179,7 @@ def train():
 
     return vgg
 
-def predict(vgg=None):
+def predict(vgg):
 
     if vgg == None:
         model_name = saved_model_path + 'model' + str(num_models-1) + '.h5'
