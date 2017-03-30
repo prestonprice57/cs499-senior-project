@@ -33,15 +33,49 @@ model = load_model(model_name)
 vgg = Vgg16BN()
 vgg.model = model
 
-predictions, f_names = vgg.test(test_path, nb_test_samples, aug=aug)
 
-# img_names = HDF5Matrix('/home/ec2-user/img_names.hdf5', 'names', 0, 1000)
-pred_fn = saved_pred_path + 'prediction' + str(num_models) + '.csv'
-with open(pred_fn, 'wb') as csvfile:
-    writer = csv.writer(csvfile, delimiter=',')
-    writer.writerow(['image', 'ALB', 'BET', 'DOL', 'LAG', 'NoF', 'OTHER', 'SHARK', 'YFT'])
-    for (i, p) in enumerate(predict):
-        # PUT IMAGE TITLE HERE
-        p = list(p)
-        row = [os.path.basename(f_names[i])] + p
-        writer.writerow(row)
+start = 4
+end = 9
+nb_runs = (end-start)+1
+nb_augs = 5
+f_names = None
+
+def predict():
+	predictions_full = np.zeros((nb_test_samples, nb_classes))
+	for i in xrange(start,end+1):
+	    model_name = saved_model_path + 'model' + str(i) + '.h5'
+	    print('predicting on ' + model_name)
+	    model = load_model(model_name)
+
+	    vgg = Vgg16BN()
+	    vgg.model = model
+
+		predictions_mod = np.zeros((nb_test_samples, nb_classes))
+
+		for j in xrange(nb_augs):
+			print('augmentation number ' + str(j))		
+			predictions, f_names = vgg.test(test_path, nb_test_samples, aug=aug)
+			predictions_mod += predictions
+
+		predictions_mod /= nb_augs
+		predictions_full += predictions_mod
+
+	predictions_full /= nb_runs
+
+	return predictions_full
+
+def write(predictions):
+	pred_fn = saved_pred_path + 'prediction' + str(num_models) + '.csv'
+    with open(pred_fn, 'wb') as csvfile:
+        writer = csv.writer(csvfile, delimiter=',')
+        writer.writerow(['image', 'ALB', 'BET', 'DOL', 'LAG', 'NoF', 'OTHER', 'SHARK', 'YFT'])
+        for (i, preds) in enumerate(predictions):
+            preds = ['%.6f' % p for p in preds]
+            row = [os.path.basename(f_names[i])] + preds
+            writer.writerow(row)
+
+
+preds = predict()
+write(preds)
+
+
