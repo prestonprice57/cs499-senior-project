@@ -2,6 +2,7 @@ import numpy as np
 
 from models import Vgg16BN
 import csv
+import gc
 import os.path
 from os.path import expanduser
 
@@ -42,6 +43,9 @@ nb_runs = (end-start)+1
 nb_augs = 5
 f_names = None
 
+model = None
+vgg = None
+
 def predict():
 	predictions_full = np.zeros((nb_test_samples, nb_classes))
 	for i in xrange(start,end+1):
@@ -63,6 +67,9 @@ def predict():
 		predictions_full += predictions_mod
 
 	predictions_full /= nb_runs
+
+	del model, vgg
+	gc.collect()
 
 	return predictions_full
 
