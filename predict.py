@@ -14,8 +14,10 @@ px_mean = np.array([123.68, 116.779, 103.939]).reshape((3,1,1))
 
 HOME_DIR = expanduser("~")
 
+train_path = HOME_DIR + '/train/'
 test_path = HOME_DIR + '/test/'
 saved_model_path = HOME_DIR + '/saved-models/'
+saved_pred_path = HOME_DIR + '/saved-preds/'
 nb_test_samples = 1000
 
 # model
