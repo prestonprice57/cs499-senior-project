@@ -4,7 +4,6 @@ from os.path import expanduser
 import os.path
 import csv
 import gc
-import psutil
 
 from keras.layers.normalization import BatchNormalization
 from keras.layers.core import Dense, Dropout, Flatten
@@ -209,13 +208,11 @@ def predict():
 
     del vgg, model
 
-proc = psutil.Process(os.getpid())
-
 for i in xrange(6):
     print "Creating model " + str(i) + " \n\n"
     train()
     gc.collect()
-    
+
     predict()
     gc.collect()
 # predict()
