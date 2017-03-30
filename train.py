@@ -5,6 +5,8 @@ import os.path
 import csv
 import gc
 from keras.callbacks import ModelCheckpoint
+from keras.models import Sequential, Model, load_model
+
 from models import Vgg16BN
 
 HOME_DIR = expanduser("~")
@@ -77,10 +79,10 @@ def predict():
     gc.collect()
 
 for i in xrange(6):
-    print "Creating model " + str(i) + " \n"
+    print "Creating model " + str(num_models) + " \n"
     train()
 
-    print "Predicting model " + str(i) + '\n'
+    print "Predicting model " + str(num_preds) + '\n'
     predict()
 
 # predict()
