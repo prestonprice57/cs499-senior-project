@@ -214,5 +214,6 @@ for i in xrange(6):
     print "Creating model " + str(i) + " \n\n"
     train()
     predict()
+    gc.collect()
 # predict()
 
