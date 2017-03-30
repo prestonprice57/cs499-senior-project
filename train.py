@@ -4,6 +4,30 @@ import csv
 import gc
 from keras.callbacks import ModelCheckpoint
 
+HOME_DIR = expanduser("~")
+
+train_path = HOME_DIR + '/train/'
+test_path = HOME_DIR + '/test/'
+saved_model_path = HOME_DIR + '/saved-models/'
+saved_pred_path = HOME_DIR + '/saved-preds/'
+# data
+batch_size = 16
+nb_split_train_samples = 3377
+nb_full_train_samples = 3777
+nb_valid_samples = 600
+nb_test_samples = 1000
+classes = ["ALB", "BET", "DOL", "LAG", "NoF", "OTHER", "SHARK", "YFT"]
+nb_classes = len(classes)
+
+# model
+nb_runs = 5
+nb_epoch = 10
+aug = True
+dropout = 0.3
+clip = 0.01
+use_val = False
+num_models = len(os.walk(saved_model_path).next()[2])
+num_preds = len(os.walk(saved_pred_path).next()[2])
 
 def train():
     vgg = Vgg16BN(n_classes=nb_classes, lr=0.1, batch_size=batch_size, dropout=dropout)

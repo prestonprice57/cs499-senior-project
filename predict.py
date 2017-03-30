@@ -26,6 +26,8 @@ dropout = 0.05
 clip = 0.01
 use_val = False
 num_models = len(os.walk(saved_model_path).next()[2])
+classes = ["ALB", "BET", "DOL", "LAG", "NoF", "OTHER", "SHARK", "YFT"]
+nb_classes = len(classes)
 
 model_name = saved_model_path + 'model' + str(num_models-1) + '.h5'
 model = load_model(model_name)
