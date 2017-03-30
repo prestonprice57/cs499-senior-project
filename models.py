@@ -50,7 +50,7 @@ class Vgg16BN():
         Returns stacked model
         """
         model = self.model = Sequential()
-        model.add(Lambda(preprocess, input_shape=(3,)+self.size))
+        model.add(Lambda(preprocess, input_shape=(3,)+self.size output_shape=(3,)+self.size))
         model.add(ZeroPadding2D((1,1)))
         model.add(Conv2D(64, (3, 3), activation='relu'))
         model.add(ZeroPadding2D((1,1)))

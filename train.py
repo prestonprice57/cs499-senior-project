@@ -77,8 +77,10 @@ def predict():
     gc.collect()
 
 for i in xrange(6):
-    print "Creating model " + str(i) + " \n\n"
+    print "Creating model " + str(i) + " \n"
     train()
+
+    print "Predicting model " + str(i) + '\n'
     predict()
 
 # predict()
