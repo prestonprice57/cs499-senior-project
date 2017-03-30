@@ -30,12 +30,6 @@ num_models = len(os.walk(saved_model_path).next()[2])
 classes = ["ALB", "BET", "DOL", "LAG", "NoF", "OTHER", "SHARK", "YFT"]
 nb_classes = len(classes)
 
-model_name = saved_model_path + 'model' + str(num_models-1) + '.h5'
-model = load_model(model_name)
-
-vgg = Vgg16BN()
-vgg.model = model
-
 
 start = 4
 end = 9
@@ -63,8 +57,14 @@ def predict():
 			predictions, f_names = vgg.test(test_path, nb_test_samples, aug=aug)
 			predictions_mod += predictions
 
+			del predictions
+			gc.collect()
+
 		predictions_mod /= nb_augs
 		predictions_full += predictions_mod
+		
+		del predictions_mod
+		gc.collect()
 
 	predictions_full /= nb_runs
 
