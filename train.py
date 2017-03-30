@@ -5,6 +5,7 @@ import os.path
 import csv
 import gc
 from keras.callbacks import ModelCheckpoint
+from models import Vgg16BN
 
 HOME_DIR = expanduser("~")
 
