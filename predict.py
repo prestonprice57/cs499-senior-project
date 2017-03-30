@@ -76,7 +76,7 @@ def predict():
 	return predictions_full
 
 def write(predictions):
-	pred_fn = saved_pred_path + 'prediction' + str(num_models) + 'with' + str(nb_runs) '.csv'
+	pred_fn = saved_pred_path + 'prediction' + str(num_models) + 'with' + str(nb_runs) + '.csv'
 	with open(pred_fn, 'wb') as csvfile:
 		writer = csv.writer(csvfile, delimiter=',')
 		writer.writerow(['image', 'ALB', 'BET', 'DOL', 'LAG', 'NoF', 'OTHER', 'SHARK', 'YFT'])
