@@ -57,7 +57,8 @@ def predict():
     model_name = saved_model_path + 'model' + str(num_models) + '.h5'
     print(model_name)
     model = load_model(model_name)
-
+    print('model loaded')
+    
     vgg = Vgg16BN()
     vgg.model = model
 
