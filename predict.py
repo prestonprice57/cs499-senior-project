@@ -33,10 +33,10 @@ classes = ["ALB", "BET", "DOL", "LAG", "NoF", "OTHER", "SHARK", "YFT"]
 nb_classes = len(classes)
 
 
-start = 8
+start = 5
 end = 9
 nb_runs = (end-start)+1
-nb_augs = 2
+nb_augs = 5
 f_names = []
 
 model = None
@@ -76,7 +76,7 @@ def predict():
 	return predictions_full
 
 def write(predictions):
-	pred_fn = saved_pred_path + 'prediction' + str(num_models) + '.csv'
+	pred_fn = saved_pred_path + 'prediction' + str(num_models) + 'with' + str(nb_runs) '.csv'
 	with open(pred_fn, 'wb') as csvfile:
 		writer = csv.writer(csvfile, delimiter=',')
 		writer.writerow(['image', 'ALB', 'BET', 'DOL', 'LAG', 'NoF', 'OTHER', 'SHARK', 'YFT'])
