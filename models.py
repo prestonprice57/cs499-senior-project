@@ -40,6 +40,7 @@ class Vgg16BN():
         self.lr = lr
         self.batch_size = batch_size
         self.dropout = dropout
+        self.history = None
 
     def build(self):
         """
@@ -121,7 +122,7 @@ class Vgg16BN():
                                                     class_mode='categorical', shuffle=True)
         val_gen = ImageDataGenerator().flow_from_directory(val_path, target_size=self.size, batch_size=self.batch_size,
                                                            class_mode='categorical', shuffle=True)
-        self.model.fit_generator(trn_gen, samples_per_epoch=nb_trn_samples, nb_epoch=nb_epoch, verbose=2,
+        self.history = self.model.fit_generator(trn_gen, samples_per_epoch=nb_trn_samples, nb_epoch=nb_epoch, verbose=2,
                                  validation_data=val_gen, nb_val_samples=nb_val_samples, callbacks=callbacks)
 
 
@@ -130,7 +131,7 @@ class Vgg16BN():
         train_datagen = self.get_datagen(aug=aug)
         trn_gen = train_datagen.flow_from_directory(trn_path, target_size=self.size, batch_size=self.batch_size,
                                                     class_mode='categorical', shuffle=True)
-        self.model.fit_generator(trn_gen, samples_per_epoch=nb_trn_samples, nb_epoch=nb_epoch, verbose=2,
+        self.history = self.model.fit_generator(trn_gen, samples_per_epoch=nb_trn_samples, nb_epoch=nb_epoch, verbose=2,
                 callbacks=callbacks)
 
     def test(self, test_path, nb_test_samples, aug=False):
