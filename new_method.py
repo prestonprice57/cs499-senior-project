@@ -162,7 +162,7 @@ aug = True
 dropout = 0.0
 clip = 0.01
 use_val = False
-num_models = len(os.walk(saved_model_path).next()[2])
+num_models = 5#len(os.walk(saved_model_path).next()[2])
 num_preds = len(os.walk(saved_pred_path).next()[2])
 
 def train():
