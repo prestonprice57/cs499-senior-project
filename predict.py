@@ -31,7 +31,7 @@ classes = ["ALB", "BET", "DOL", "LAG", "NoF", "OTHER", "SHARK", "YFT"]
 nb_classes = len(classes)
 
 
-start = 4
+start = 8
 end = 9
 nb_runs = (end-start)+1
 nb_augs = 5
@@ -65,13 +65,11 @@ def predict():
 		
 		del predictions_mod
 		gc.collect()
-		print(gc.garbage())
 
 	predictions_full /= nb_runs
 
 	del model, vgg
 	gc.collect()
-	print(gc.garbage())
 
 	return predictions_full
 
