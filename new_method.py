@@ -4,6 +4,7 @@ from os.path import expanduser
 import os.path
 import csv
 import gc
+import psutil
 
 from keras.layers.normalization import BatchNormalization
 from keras.layers.core import Dense, Dropout, Flatten
@@ -179,7 +180,6 @@ def train():
     model_fn = saved_model_path + 'model' +  str(num_models) + '.h5'
     vgg.model.save(model_fn)
 
-    del vgg.model
     del vgg
 
     return num_models
@@ -207,13 +207,15 @@ def predict():
             row = [os.path.basename(f_names[i])] + preds
             writer.writerow(row)
 
-    del vgg.model
-    del model
-    del vgg
+    del vgg, model
+
+proc = psutil.Process(os.getpid())
 
 for i in xrange(6):
     print "Creating model " + str(i) + " \n\n"
     train()
+    gc.collect()
+    
     predict()
     gc.collect()
 # predict()
