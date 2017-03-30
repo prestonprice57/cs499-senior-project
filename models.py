@@ -41,6 +41,8 @@ class Vgg16BN():
         self.batch_size = batch_size
         self.dropout = dropout
         self.history = None
+        self.test_datagen = None
+        self.test_gen = None
 
     def build(self):
         """
@@ -136,10 +138,10 @@ class Vgg16BN():
 
     def test(self, test_path, nb_test_samples, aug=False):
         """Custom prediction method with option for data augmentation"""
-        test_datagen = self.get_datagen(aug=aug)
-        test_gen = test_datagen.flow_from_directory(test_path, target_size=self.size, batch_size=self.batch_size,
+        self.test_datagen = self.get_datagen(aug=aug)
+        self.test_gen = self.test_datagen.flow_from_directory(test_path, target_size=self.size, batch_size=self.batch_size,
                                                     class_mode=None, shuffle=False)
-        return self.model.predict_generator(test_gen, val_samples=nb_test_samples), test_gen.filenames
+        return self.model.predict_generator(self.test_gen, val_samples=nb_test_samples), self.test_gen.filenames
 
 
 
