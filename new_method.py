@@ -210,9 +210,9 @@ def predict():
     del model
     del vgg
 
-# for i in xrange(6):
-#     print "Creating model " + str(i) + " \n\n"
-#     train()
-#     predict()
-predict()
+for i in xrange(6):
+    print "Creating model " + str(i) + " \n\n"
+    train()
+    predict()
+# predict()
 
