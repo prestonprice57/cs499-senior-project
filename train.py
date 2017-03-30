@@ -1,5 +1,7 @@
 import numpy as np
 
+from os.path import expanduser
+import os.path
 import csv
 import gc
 from keras.callbacks import ModelCheckpoint
@@ -42,7 +44,8 @@ def train():
     model_fn = saved_model_path + 'model' +  str(num_models) + '.h5'
     vgg.model.save(model_fn)
 
-    del vgg
+    del vgg.model, vgg.history, vgg
+    gc.collect()
 
     return num_models
 
@@ -69,13 +72,12 @@ def predict():
             row = [os.path.basename(f_names[i])] + preds
             writer.writerow(row)
 
-    del vgg, model
+    del vgg.model, vgg.history, vgg, model
+    gc.collect()
 
 # for i in xrange(6):
 #     print "Creating model " + str(i) + " \n\n"
 #     train()
-#     gc.collect()
-
 #     predict()
-#     gc.collect()
+
 # predict()

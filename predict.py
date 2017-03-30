@@ -59,13 +59,10 @@ def predict():
 			predictions, f_names = vgg.test(test_path, nb_test_samples, aug=aug)
 			predictions_mod += predictions
 
-			del predictions
-			gc.collect()
-
 		predictions_mod /= nb_augs
 		predictions_full += predictions_mod
 		
-		del predictions_mod, model, vgg
+		del predictions_mod, model, vgg.model, vgg.history, vgg
 		gc.collect()
 
 	predictions_full /= nb_runs
