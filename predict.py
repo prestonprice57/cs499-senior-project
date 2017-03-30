@@ -1,6 +1,5 @@
 import numpy as np
 
-from new_method import Vgg16BN
 import csv
 import os.path
 from os.path import expanduser
