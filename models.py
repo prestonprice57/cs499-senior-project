@@ -18,7 +18,7 @@ from keras import optimizers
 from keras.callbacks import ModelCheckpoint
 from keras import backend as K
 
-
+K.set_image_dim_ordering('th')
 
 def preprocess(x):
     px_mean = np.array([123.68, 116.779, 103.939]).reshape((3,1,1))
