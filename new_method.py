@@ -204,9 +204,9 @@ def predict(vgg=MISSING):
             row = [os.path.basename(f_names[i])] + p
             writer.writerow(row)
 
-for i in xrange(6):
-    print "Creating model " + str(i) + " \n\n"
-    vgg = train()
-    predict(vgg)
-
+# for i in xrange(6):
+#     print "Creating model " + str(i) + " \n\n"
+#     vgg = train()
+#     predict(vgg)
+predict()
 
