@@ -70,6 +70,7 @@ def predict():
 
 	del model, vgg
 	gc.collect()
+	print(gc.garbage())
 
 	return predictions_full
 
