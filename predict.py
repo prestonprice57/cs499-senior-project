@@ -36,7 +36,7 @@ nb_classes = len(classes)
 start = 8
 end = 9
 nb_runs = (end-start)+1
-nb_augs = 5
+nb_augs = 2
 f_names = []
 
 model = None
@@ -80,9 +80,9 @@ def write(predictions):
 	with open(pred_fn, 'wb') as csvfile:
 		writer = csv.writer(csvfile, delimiter=',')
 		writer.writerow(['image', 'ALB', 'BET', 'DOL', 'LAG', 'NoF', 'OTHER', 'SHARK', 'YFT'])
-		for (i, preds) in enumerate(predictions):
-			preds = ['%.6f' % p for p in predictions]
-			row = [os.path.basename(f_names[i])] + preds
+		for (i, f_name) in enumerate(f_names):
+			preds = ['%.6f' % p for p in predictions.array()]
+			row = [os.path.basename(f_name)] + preds
 			writer.writerow(row)
 
 
