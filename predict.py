@@ -65,13 +65,10 @@ def predict():
 		predictions_mod /= nb_augs
 		predictions_full += predictions_mod
 		
-		del predictions_mod
+		del predictions_mod, model, vgg
 		gc.collect()
 
 	predictions_full /= nb_runs
-
-	del model, vgg
-	gc.collect()
 
 	return predictions_full
 
