@@ -163,6 +163,7 @@ dropout = 0.0
 clip = 0.01
 use_val = False
 num_models = len(os.walk(saved_model_path).next()[2])
+num_preds = len(os.walk(saved_pred_path).next()[2])
 
 def train():
     vgg = Vgg16BN(n_classes=nb_classes, lr=0.1, batch_size=batch_size, dropout=dropout)
@@ -177,24 +178,24 @@ def train():
     model_fn = saved_model_path + 'model' +  str(num_models) + '.h5'
     vgg.model.save(model_fn)
 
-    return vgg
+    del vgg.model
+    return num_models
 
 MISSING = object()
 
-def predict(vgg=MISSING):
+def predict():
 
-    if vgg is MISSING:
-        model_name = saved_model_path + 'model' + str(num_models-1) + '.h5'
-        print(model_name)
-        model = load_model(model_name)
+    model_name = saved_model_path + 'model' + str(num_models) + '.h5'
+    print(model_name)
+    model = load_model(model_name)
 
-        vgg = Vgg16BN()
-        vgg.model = model
+    vgg = Vgg16BN()
+    vgg.model = model
 
     predictions, f_names = vgg.test(test_path, nb_test_samples, aug=False)
 
     # img_names = HDF5Matrix('/home/ec2-user/img_names.hdf5', 'names', 0, 1000)
-    pred_fn = saved_pred_path + 'prediction' + str(num_models-1) + '.csv'
+    pred_fn = saved_pred_path + 'prediction' + str(num_preds) + '.csv'
     with open(pred_fn, 'wb') as csvfile:
         writer = csv.writer(csvfile, delimiter=',')
         writer.writerow(['image', 'ALB', 'BET', 'DOL', 'LAG', 'NoF', 'OTHER', 'SHARK', 'YFT'])
@@ -204,9 +205,9 @@ def predict(vgg=MISSING):
             row = [os.path.basename(f_names[i])] + p
             writer.writerow(row)
 
-# for i in xrange(6):
-#     print "Creating model " + str(i) + " \n\n"
-#     vgg = train()
-#     predict(vgg)
-predict()
+for i in xrange(6):
+    print "Creating model " + str(i) + " \n\n"
+    train()
+    predict()
+# predict()
 
