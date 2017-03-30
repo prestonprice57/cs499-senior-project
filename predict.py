@@ -65,6 +65,7 @@ def predict():
 		
 		del predictions_mod
 		gc.collect()
+		print(gc.garbage())
 
 	predictions_full /= nb_runs
 
