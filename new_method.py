@@ -179,9 +179,9 @@ def train():
     vgg.model.save(model_fn)
 
     del vgg.model
-    return num_models
+    del vgg
 
-MISSING = object()
+    return num_models
 
 def predict():
 
@@ -199,15 +199,20 @@ def predict():
     with open(pred_fn, 'wb') as csvfile:
         writer = csv.writer(csvfile, delimiter=',')
         writer.writerow(['image', 'ALB', 'BET', 'DOL', 'LAG', 'NoF', 'OTHER', 'SHARK', 'YFT'])
-        for (i, p) in enumerate(predictions):
+        for (i, preds) in enumerate(predictions):
             # PUT IMAGE TITLE HERE
-            p = list(p)
-            row = [os.path.basename(f_names[i])] + p
+            preds = ['%.6f' % p for p in preds]
+            # p = list(p)
+            row = [os.path.basename(f_names[i])] + preds
             writer.writerow(row)
 
-for i in xrange(6):
-    print "Creating model " + str(i) + " \n\n"
-    train()
-    predict()
-# predict()
+    del vgg.model
+    del model
+    del vgg
+
+# for i in xrange(6):
+#     print "Creating model " + str(i) + " \n\n"
+#     train()
+#     predict()
+predict()
 
