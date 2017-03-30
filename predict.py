@@ -66,13 +66,13 @@ def predict():
 
 def write(predictions):
 	pred_fn = saved_pred_path + 'prediction' + str(num_models) + '.csv'
-    with open(pred_fn, 'wb') as csvfile:
-        writer = csv.writer(csvfile, delimiter=',')
-        writer.writerow(['image', 'ALB', 'BET', 'DOL', 'LAG', 'NoF', 'OTHER', 'SHARK', 'YFT'])
-        for (i, preds) in enumerate(predictions):
-            preds = ['%.6f' % p for p in preds]
-            row = [os.path.basename(f_names[i])] + preds
-            writer.writerow(row)
+	with open(pred_fn, 'wb') as csvfile:
+		writer = csv.writer(csvfile, delimiter=',')
+		writer.writerow(['image', 'ALB', 'BET', 'DOL', 'LAG', 'NoF', 'OTHER', 'SHARK', 'YFT'])
+		for (i, preds) in enumerate(predictions):
+			preds = ['%.6f' % p for p in preds]
+			row = [os.path.basename(f_names[i])] + preds
+			writer.writerow(row)
 
 
 preds = predict()
