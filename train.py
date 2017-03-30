@@ -75,9 +75,9 @@ def predict():
     del vgg.model, vgg.history, vgg, model
     gc.collect()
 
-# for i in xrange(6):
-#     print "Creating model " + str(i) + " \n\n"
-#     train()
-#     predict()
+for i in xrange(6):
+    print "Creating model " + str(i) + " \n\n"
+    train()
+    predict()
 
 # predict()
