@@ -43,12 +43,12 @@ f_names = None
 def predict():
 	predictions_full = np.zeros((nb_test_samples, nb_classes))
 	for i in xrange(start,end+1):
-	    model_name = saved_model_path + 'model' + str(i) + '.h5'
-	    print('predicting on ' + model_name)
-	    model = load_model(model_name)
+		model_name = saved_model_path + 'model' + str(i) + '.h5'
+		print('predicting on ' + model_name)
+		model = load_model(model_name)
 
-	    vgg = Vgg16BN()
-	    vgg.model = model
+		vgg = Vgg16BN()
+		vgg.model = model
 
 		predictions_mod = np.zeros((nb_test_samples, nb_classes))
 
