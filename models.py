@@ -126,7 +126,7 @@ class Vgg16BN():
         val_gen = ImageDataGenerator().flow_from_directory(val_path, target_size=self.size, batch_size=self.batch_size,
                                                            class_mode='categorical', shuffle=True)
         self.history = self.model.fit_generator(trn_gen, steps_per_epoch=nb_trn_samples, epochs=nb_epoch, verbose=2,
-                                 validation_data=val_gen, validation_steps=nb_val_samples, callbacks=callbacks)
+                                 validation_data=val_gen, validation_steps=nb_val_samples)
 
 
     def fit_full(self, trn_path, nb_trn_samples, nb_epoch=1, callbacks=[], aug=False):
@@ -134,8 +134,7 @@ class Vgg16BN():
         train_datagen = self.get_datagen(aug=aug)
         trn_gen = train_datagen.flow_from_directory(trn_path, target_size=self.size, batch_size=self.batch_size,
                                                     class_mode='categorical', shuffle=True)
-        self.history = self.model.fit_generator(trn_gen, steps_per_epoch=nb_trn_samples, nb_epoch=nb_epoch, verbose=2,
-                callbacks=callbacks)
+        self.history = self.model.fit_generator(trn_gen, steps_per_epoch=nb_trn_samples, nb_epoch=nb_epoch, verbose=2)
 
     def test(self, test_path, nb_test_samples, aug=False):
         """Custom prediction method with option for data augmentation"""
