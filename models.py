@@ -141,7 +141,7 @@ class Vgg16BN():
         self.test_datagen = self.get_datagen(aug=aug)
         self.test_gen = self.test_datagen.flow_from_directory(test_path, target_size=self.size, batch_size=self.batch_size,
                                                     class_mode=None, shuffle=False)
-        return self.model.predict_generator(self.test_gen, steps=nb_test_samples/self.batch_size), self.test_gen.filenames
+        return self.model.predict_generator(self.test_gen, steps=(nb_test_samples/self.batch_size)+1), self.test_gen.filenames
 
 
 
