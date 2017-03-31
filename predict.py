@@ -77,6 +77,7 @@ def write(predictions, f_names):
 		writer = csv.writer(csvfile, delimiter=',')
 		writer.writerow(['image', 'ALB', 'BET', 'DOL', 'LAG', 'NoF', 'OTHER', 'SHARK', 'YFT'])
 		for (i, f_name) in enumerate(f_names):
+			print np.asarray(predictions)
 			preds = ['%.6f' % p for p in np.asarray(predictions)]
 			row = [os.path.basename(f_name)] + preds
 			writer.writerow(row)
