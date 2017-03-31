@@ -55,7 +55,7 @@ def train():
 
 def predict():
 
-    model_name = saved_model_path + 'model' + str(num_models) + '.h5'
+    model_name = saved_model_path + 'model' + str(num_models-1) + '.h5'
     print(model_name)
     model = load_model(model_name)
     print('model loaded')
