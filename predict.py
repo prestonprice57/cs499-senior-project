@@ -57,6 +57,7 @@ def predict():
 		for j in xrange(nb_augs):
 			print('augmentation number ' + str(j))		
 			predictions, f_names = vgg.test(test_path, nb_test_samples, aug=aug)
+			print f_names
 			predictions_mod += predictions
 
 		predictions_mod /= nb_augs
