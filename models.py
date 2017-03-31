@@ -7,7 +7,7 @@ import gc
 
 from keras.layers.normalization import BatchNormalization
 from keras.layers.core import Dense, Dropout, Flatten
-from keras.layers import ZeroPadding2D, MaxPooling2D, GlobalAveragePooling2D, Conv2D, AveragePooling2D
+from keras.layers import ZeroPadding2D, MaxPooling2D, GlobalAveragePooling2D, Convolution2D, AveragePooling2D
 from keras.layers import Input, Activation, Lambda
 from keras.models import Sequential, Model, load_model
 from keras.preprocessing.image import ImageDataGenerator
@@ -18,7 +18,7 @@ from keras import optimizers
 from keras.callbacks import ModelCheckpoint
 from keras import backend as K
 
-K.set_image_dim_ordering('th')
+
 
 def preprocess(x):
     px_mean = np.array([123.68, 116.779, 103.939]).reshape((3,1,1))
@@ -50,41 +50,40 @@ class Vgg16BN():
         Returns stacked model
         """
         model = self.model = Sequential()
-        model.add(Lambda(preprocess, input_shape=(3,)+self.size, output_shape=(3,)+self.size))
+        model.add(ZeroPadding2D((1,1), input_shape=(3,)+self.size))
+        model.add(Convolution2D(64, 3, 3, activation='relu'))
         model.add(ZeroPadding2D((1,1)))
-        model.add(Conv2D(64, (3, 3), activation='relu'))
-        model.add(ZeroPadding2D((1,1)))
-        model.add(Conv2D(64, (3, 3), activation='relu'))
+        model.add(Convolution2D(64, 3, 3, activation='relu'))
         model.add(MaxPooling2D((2,2), strides=(2,2)))
 
         model.add(ZeroPadding2D((1,1)))
-        model.add(Conv2D(128, (3, 3), activation='relu'))
+        model.add(Convolution2D(128, 3, 3, activation='relu'))
         model.add(ZeroPadding2D((1,1)))
-        model.add(Conv2D(128, (3, 3), activation='relu'))
+        model.add(Convolution2D(128, 3, 3, activation='relu'))
         model.add(MaxPooling2D((2,2), strides=(2,2)))
 
         model.add(ZeroPadding2D((1,1)))
-        model.add(Conv2D(256, (3, 3), activation='relu'))
+        model.add(Convolution2D(256, 3, 3, activation='relu'))
         model.add(ZeroPadding2D((1,1)))
-        model.add(Conv2D(256, (3, 3), activation='relu'))
+        model.add(Convolution2D(256, 3, 3, activation='relu'))
         model.add(ZeroPadding2D((1,1)))
-        model.add(Conv2D(256, (3, 3), activation='relu'))
+        model.add(Convolution2D(256, 3, 3, activation='relu'))
         model.add(MaxPooling2D((2,2), strides=(2,2)))
 
         model.add(ZeroPadding2D((1,1)))
-        model.add(Conv2D(512, (3, 3), activation='relu'))
+        model.add(Convolution2D(512, 3, 3, activation='relu'))
         model.add(ZeroPadding2D((1,1)))
-        model.add(Conv2D(512, (3, 3), activation='relu'))
+        model.add(Convolution2D(512, 3, 3, activation='relu'))
         model.add(ZeroPadding2D((1,1)))
-        model.add(Conv2D(512, (3, 3), activation='relu'))
+        model.add(Convolution2D(512, 3, 3, activation='relu'))
         model.add(MaxPooling2D((2,2), strides=(2,2)))
 
         model.add(ZeroPadding2D((1,1)))
-        model.add(Conv2D(512, (3, 3), activation='relu'))
+        model.add(Convolution2D(512, 3, 3, activation='relu'))
         model.add(ZeroPadding2D((1,1)))
-        model.add(Conv2D(512, (3, 3), activation='relu'))
+        model.add(Convolution2D(512, 3, 3, activation='relu'))
         model.add(ZeroPadding2D((1,1)))
-        model.add(Conv2D(512, (3, 3), activation='relu'))
+        model.add(Convolution2D(512, 3, 3, activation='relu'))
         model.add(MaxPooling2D((2,2), strides=(2,2)))
 
         model.add(Flatten())
@@ -125,8 +124,8 @@ class Vgg16BN():
                                                     class_mode='categorical', shuffle=True)
         val_gen = ImageDataGenerator().flow_from_directory(val_path, target_size=self.size, batch_size=self.batch_size,
                                                            class_mode='categorical', shuffle=True)
-        self.history = self.model.fit_generator(trn_gen, steps_per_epoch=nb_trn_samples, epochs=nb_epoch, verbose=2,
-                                 validation_data=val_gen, validation_steps=nb_val_samples)
+        self.history = self.model.fit_generator(trn_gen, samples_per_epoch=nb_trn_samples, nb_epoch=nb_epoch, verbose=2,
+                                 validation_data=val_gen, nb_val_samples=nb_val_samples, callbacks=callbacks)
 
 
     def fit_full(self, trn_path, nb_trn_samples, nb_epoch=1, callbacks=[], aug=False):
@@ -134,14 +133,15 @@ class Vgg16BN():
         train_datagen = self.get_datagen(aug=aug)
         trn_gen = train_datagen.flow_from_directory(trn_path, target_size=self.size, batch_size=self.batch_size,
                                                     class_mode='categorical', shuffle=True)
-        self.history = self.model.fit_generator(trn_gen, steps_per_epoch=nb_trn_samples, epochs=nb_epoch, verbose=2)
+        self.history = self.model.fit_generator(trn_gen, samples_per_epoch=nb_trn_samples, nb_epoch=nb_epoch, verbose=2,
+                callbacks=callbacks)
 
     def test(self, test_path, nb_test_samples, aug=False):
         """Custom prediction method with option for data augmentation"""
         self.test_datagen = self.get_datagen(aug=aug)
         self.test_gen = self.test_datagen.flow_from_directory(test_path, target_size=self.size, batch_size=self.batch_size,
                                                     class_mode=None, shuffle=False)
-        return self.model.predict_generator(self.test_gen, steps=nb_test_samples), self.test_gen.filenames
+        return self.model.predict_generator(self.test_gen, val_samples=nb_test_samples), self.test_gen.filenames
 
 
 
