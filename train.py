@@ -83,8 +83,10 @@ def predict():
 for i in xrange(6):
     print "Creating model " + str(num_models) + " \n"
     train()
+    num_models+=1
 
     print "Predicting model " + str(num_preds) + '\n'
     predict()
+    num_preds+=1
 
 # predict()
