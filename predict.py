@@ -34,10 +34,10 @@ classes = ["ALB", "BET", "DOL", "LAG", "NoF", "OTHER", "SHARK", "YFT"]
 nb_classes = len(classes)
 
 
-start = 8
+start = 4
 end = 9
 nb_runs = (end-start)+1
-nb_augs = 2
+nb_augs = 5
 
 
 model = None
