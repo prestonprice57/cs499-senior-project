@@ -64,7 +64,7 @@ def predict():
     vgg = Vgg16BN()
     vgg.model = model
 
-    predictions, f_names = vgg.test(test_path, nb_test_samples, aug=True)
+    predictions, f_names = vgg.test(test_path, nb_test_samples, aug=aug)
 
     # img_names = HDF5Matrix('/home/ec2-user/img_names.hdf5', 'names', 0, 1000)
     pred_fn = saved_pred_path + 'prediction' + str(num_preds) + '.csv'

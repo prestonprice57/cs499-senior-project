@@ -50,8 +50,8 @@ class Vgg16BN():
         Returns stacked model
         """
         model = self.model = Sequential()
-        model.add(Lambda(preprocess, input_shape=(3,)+self.size, output_shape=(3,)+self.size))
-        model.add(ZeroPadding2D((1,1)))
+        # model.add(Lambda(preprocess, input_shape=(3,)+self.size, output_shape=(3,)+self.size))
+        model.add(ZeroPadding2D((1,1)), input_shape=(3,)+self.size)
         model.add(Conv2D(64, (3, 3), activation='relu'))
         model.add(ZeroPadding2D((1,1)))
         model.add(Conv2D(64, (3, 3), activation='relu'))
@@ -113,7 +113,7 @@ class Vgg16BN():
 
     def get_datagen(self, aug=False):
         if aug:
-            return ImageDataGenerator(rotation_range=10, width_shift_range=0.05, zoom_range=0.05,
+            return ImageDataGenerator(samplewise_center=True, rotation_range=10, width_shift_range=0.05, zoom_range=0.05,
                                       channel_shift_range=10, height_shift_range=0.05, shear_range=0.05,
                                       horizontal_flip=True)
         return ImageDataGenerator()
