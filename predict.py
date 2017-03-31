@@ -18,6 +18,7 @@ train_path = HOME_DIR + '/train/'
 test_path = HOME_DIR + '/test/'
 saved_model_path = HOME_DIR + '/saved-models/'
 saved_pred_path = HOME_DIR + '/saved-preds/'
+saved_pred_ensemble_path = HOME_DIR + '/saved-preds-ensemble/'
 nb_test_samples = 1000
 
 # model
@@ -71,12 +72,12 @@ def predict():
 	return predictions_full, f_names
 
 def write(predictions, f_names):
-	pred_fn = saved_pred_path + 'prediction' + str(num_models) + 'with' + str(nb_runs) + '.csv'
+	pred_fn = saved_pred_ensemble_path + 'prediction' + str(num_models) + 'with' + str(nb_runs) + '.csv'
 	with open(pred_fn, 'wb') as csvfile:
 		writer = csv.writer(csvfile, delimiter=',')
 		writer.writerow(['image', 'ALB', 'BET', 'DOL', 'LAG', 'NoF', 'OTHER', 'SHARK', 'YFT'])
 		for (i, f_name) in enumerate(f_names):
-			preds = ['%.6f' % p for p in predictions.tolist()]
+			preds = ['%.6f' % p for p in predictions.asarray()]
 			row = [os.path.basename(f_name)] + preds
 			writer.writerow(row)
 
