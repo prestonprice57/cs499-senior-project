@@ -19,6 +19,8 @@ from keras.callbacks import ModelCheckpoint
 from keras import backend as K
 
 K.set_image_dim_ordering('th')
+os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"   # see issue #152
+os.environ["CUDA_VISIBLE_DEVICES"]="0"
 
 def preprocess(x):
     px_mean = np.array([123.68, 116.779, 103.939]).reshape((3,1,1))
