@@ -1,4 +1,5 @@
 import numpy as np
+import tensorflow as tf
 
 from os.path import expanduser
 import os.path
