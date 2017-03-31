@@ -99,10 +99,10 @@ class Vgg16BN():
             layer.trainable = False
 
         model.add(Dense(4096, activation='relu'))
-        model.add(BatchNormalization())
+        # model.add(BatchNormalization())
         model.add(Dropout(self.dropout))
         model.add(Dense(4096, activation='relu'))
-        model.add(BatchNormalization())
+        # model.add(BatchNormalization())
         model.add(Dropout(self.dropout))
         model.add(Dense(self.n_classes, activation='softmax'))
 
