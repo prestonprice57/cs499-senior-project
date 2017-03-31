@@ -28,22 +28,20 @@ nb_classes = len(classes)
 # model
 nb_runs = 5
 nb_epoch = 10
-aug = True
-global dropout 
+aug = True 
 dropout = 0.2
 clip = 0.01
 use_val = False
 num_models = len(os.walk(saved_model_path).next()[2])
 num_preds = len(os.walk(saved_pred_path).next()[2])
 
-def train():
+def train(dropout):
     vgg = Vgg16BN(n_classes=nb_classes, lr=0.1, batch_size=batch_size, dropout=dropout)
     vgg.build()
 
     # model_fn = saved_model_path + '{val_loss:.2f}-loss_{epoch}epoch_vgg16'
     # ckpt = ModelCheckpoint(filepath=model_fn, monitor='val_loss',
     #                            save_best_only=True, save_weights_only=True)
-    dropout += 0.05
 
     vgg.fit_full(train_path, nb_trn_samples=nb_full_train_samples, nb_epoch=nb_epoch, aug=aug)
 
@@ -84,9 +82,10 @@ def predict():
 
 for i in xrange(8):
     print "Creating model " + str(num_models) + " \n"
-    train()
+    train(dropout)
     num_models+=1
 
+    dropout += 0.05
     # print "Predicting model " + str(num_preds) + '\n'
     # predict()
     # num_preds+=1
