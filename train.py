@@ -58,7 +58,7 @@ def predict():
     print(model_name)
     model = load_model(model_name)
     print('model loaded')
-    
+
     vgg = Vgg16BN()
     vgg.model = model
 
@@ -79,11 +79,12 @@ def predict():
     del vgg.model, vgg.history, vgg, model
     gc.collect()
 
-for i in xrange(6):
-    print "Creating model " + str(num_models) + " \n"
-    train()
+with tf.device('/gpu:0'):
+    for i in xrange(6):
+        print "Creating model " + str(num_models) + " \n"
+        train()
 
-    print "Predicting model " + str(num_preds) + '\n'
-    predict()
+        print "Predicting model " + str(num_preds) + '\n'
+        predict()
 
 # predict()
