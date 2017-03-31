@@ -86,8 +86,8 @@ for i in xrange(8):
     train()
     num_models+=1
 
-    print "Predicting model " + str(num_preds) + '\n'
-    predict()
-    num_preds+=1
+    # print "Predicting model " + str(num_preds) + '\n'
+    # predict()
+    # num_preds+=1
 
 # predict()
