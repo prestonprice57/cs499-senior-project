@@ -43,7 +43,6 @@ def train():
     # ckpt = ModelCheckpoint(filepath=model_fn, monitor='val_loss',
     #                            save_best_only=True, save_weights_only=True)
 
-    print 'fitting model'
     vgg.fit_full(train_path, nb_trn_samples=nb_full_train_samples, nb_epoch=nb_epoch, aug=aug)
 
     model_fn = saved_model_path + 'model' +  str(num_models) + '.h5'
