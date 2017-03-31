@@ -33,10 +33,10 @@ classes = ["ALB", "BET", "DOL", "LAG", "NoF", "OTHER", "SHARK", "YFT"]
 nb_classes = len(classes)
 
 
-start = 4
+start = 8
 end = 9
 nb_runs = (end-start)+1
-nb_augs = 5
+nb_augs = 2
 f_names = []
 
 model = None
@@ -57,7 +57,6 @@ def predict():
 		for j in xrange(nb_augs):
 			print('augmentation number ' + str(j))		
 			predictions, f_names = vgg.test(test_path, nb_test_samples, aug=aug)
-			print f_names
 			predictions_mod += predictions
 
 		predictions_mod /= nb_augs
@@ -75,6 +74,7 @@ def write(predictions):
 	with open(pred_fn, 'wb') as csvfile:
 		writer = csv.writer(csvfile, delimiter=',')
 		writer.writerow(['image', 'ALB', 'BET', 'DOL', 'LAG', 'NoF', 'OTHER', 'SHARK', 'YFT'])
+		print f_names
 		for (i, f_name) in enumerate(f_names):
 			preds = ['%.6f' % p for p in predictions.array()]
 			row = [os.path.basename(f_name)] + preds
