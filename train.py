@@ -29,6 +29,7 @@ nb_classes = len(classes)
 nb_runs = 5
 nb_epoch = 10
 aug = True
+global dropout 
 dropout = 0.2
 clip = 0.01
 use_val = False
