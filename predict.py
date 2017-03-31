@@ -37,12 +37,13 @@ start = 8
 end = 9
 nb_runs = (end-start)+1
 nb_augs = 2
-f_names = []
+
 
 model = None
 vgg = None
 
 def predict():
+	f_names = []
 	predictions_full = np.zeros((nb_test_samples, nb_classes))
 	for i in xrange(start,end+1):
 		model_name = saved_model_path + 'model' + str(i) + '.h5'
@@ -67,9 +68,9 @@ def predict():
 
 	predictions_full /= nb_runs
 
-	return predictions_full
+	return predictions_full, f_names
 
-def write(predictions):
+def write(predictions, f_names):
 	pred_fn = saved_pred_path + 'prediction' + str(num_models) + 'with' + str(nb_runs) + '.csv'
 	with open(pred_fn, 'wb') as csvfile:
 		writer = csv.writer(csvfile, delimiter=',')
@@ -81,7 +82,7 @@ def write(predictions):
 			writer.writerow(row)
 
 
-preds = predict()
-write(preds)
+preds, f_names = predict()
+write(preds, f_names)
 
 
