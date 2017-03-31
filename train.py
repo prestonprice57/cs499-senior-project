@@ -80,12 +80,11 @@ def predict():
     del vgg.model, vgg.history, vgg, model
     gc.collect()
 
-with tf.device('/gpu:0'):
-    for i in xrange(6):
-        print "Creating model " + str(num_models) + " \n"
-        train()
+for i in xrange(6):
+    print "Creating model " + str(num_models) + " \n"
+    train()
 
-        print "Predicting model " + str(num_preds) + '\n'
-        predict()
+    print "Predicting model " + str(num_preds) + '\n'
+    predict()
 
 # predict()
