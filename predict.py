@@ -75,9 +75,8 @@ def write(predictions, f_names):
 	with open(pred_fn, 'wb') as csvfile:
 		writer = csv.writer(csvfile, delimiter=',')
 		writer.writerow(['image', 'ALB', 'BET', 'DOL', 'LAG', 'NoF', 'OTHER', 'SHARK', 'YFT'])
-		print f_names
 		for (i, f_name) in enumerate(f_names):
-			preds = ['%.6f' % p for p in predictions.array()]
+			preds = ['%.6f' % p for p in predictions.tolist()]
 			row = [os.path.basename(f_name)] + preds
 			writer.writerow(row)
 
