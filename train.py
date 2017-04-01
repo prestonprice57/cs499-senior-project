@@ -27,9 +27,9 @@ nb_classes = len(classes)
 
 # model
 nb_runs = 5
-nb_epoch = 10
+nb_epoch = 15
 aug = True 
-dropout = 0.2
+dropout = 0.5
 clip = 0.01
 use_val = False
 num_models = len(os.walk(saved_model_path).next()[2])
@@ -85,7 +85,6 @@ for i in xrange(8):
     train()
     num_models+=1
 
-    dropout += 0.05
     # print "Predicting model " + str(num_preds) + '\n'
     # predict()
     # num_preds+=1
