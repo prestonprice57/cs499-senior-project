@@ -35,7 +35,7 @@ use_val = False
 num_models = len(os.walk(saved_model_path).next()[2])
 num_preds = len(os.walk(saved_pred_path).next()[2])
 
-def train(dropout):
+def train():
     vgg = Vgg16BN(n_classes=nb_classes, lr=0.1, batch_size=batch_size, dropout=dropout)
     vgg.build()
 
@@ -82,7 +82,7 @@ def predict():
 
 for i in xrange(8):
     print "Creating model " + str(num_models) + " \n"
-    train(dropout)
+    train()
     num_models+=1
 
     dropout += 0.05
