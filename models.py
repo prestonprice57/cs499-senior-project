@@ -99,21 +99,23 @@ class Vgg16BN():
             layer.trainable = False
 
         model.add(Dense(4096, activation='relu'))
-        # model.add(BatchNormalization())
+        model.add(BatchNormalization())
         model.add(Dropout(self.dropout))
         model.add(Dense(4096, activation='relu'))
-        # model.add(BatchNormalization())
+        model.add(BatchNormalization())
         model.add(Dropout(self.dropout))
         model.add(Dense(self.n_classes, activation='softmax'))
 
-        optimizer = optimizers.Adadelta(lr=self.lr)
+        # optimizer = optimizers.Adadelta(lr=self.lr)
+        optimizer = optimizers.SGD(lr=self.lr, decay=0.001, momentum=0.9, nesterov=True)
 
         model.compile(loss='categorical_crossentropy', optimizer=optimizer, metrics=["accuracy"])
         return model
 
     def get_datagen(self, aug=False):
         if aug:
-            return ImageDataGenerator(featurewise_center=True, rotation_range=20, width_shift_range=0.1, zoom_range=0.1,
+            return ImageDataGenerator(featurewise_center=True, featurewise_std_normalization=True,rotation_range=20, 
+                                      width_shift_range=0.1, zoom_range=0.1,
                                       channel_shift_range=10, height_shift_range=0.1, shear_range=0.1,
                                       horizontal_flip=True)
         return ImageDataGenerator()
