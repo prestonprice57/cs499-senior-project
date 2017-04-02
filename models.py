@@ -106,8 +106,8 @@ class Vgg16BN():
         model.add(Dropout(self.dropout))
         model.add(Dense(self.n_classes, activation='softmax'))
 
-        # optimizer = optimizers.Adadelta(lr=self.lr)
-        optimizer = optimizers.SGD(lr=self.lr, decay=0.001, momentum=0.9, nesterov=True)
+        optimizer = optimizers.Adadelta(lr=self.lr)
+        # optimizer = optimizers.SGD(lr=self.lr, decay=0.001, momentum=0.9, nesterov=True)
 
         model.compile(loss='categorical_crossentropy', optimizer=optimizer, metrics=["accuracy"])
         return model
