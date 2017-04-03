@@ -15,7 +15,7 @@ px_mean = np.array([123.68, 116.779, 103.939]).reshape((3,1,1))
 HOME_DIR = expanduser("~")
 
 train_path = HOME_DIR + '/train/'
-test_path = HOME_DIR + '/test/'
+test_path = HOME_DIR + '/test-selfie/'
 saved_model_path = HOME_DIR + '/saved-models/'
 saved_pred_path = HOME_DIR + '/saved-preds/'
 saved_pred_ensemble_path = HOME_DIR + '/saved-preds-ensemble/'
@@ -35,7 +35,7 @@ size=(270, 378)
 
 
 start = 0
-end = 9
+end = 8
 nb_runs = (end-start)+1
 nb_augs = 8
 
