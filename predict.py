@@ -19,7 +19,7 @@ test_path = HOME_DIR + '/test/'
 saved_model_path = HOME_DIR + '/saved-models/'
 saved_pred_path = HOME_DIR + '/saved-preds/'
 saved_pred_ensemble_path = HOME_DIR + '/saved-preds-ensemble/'
-nb_test_samples = 3
+nb_test_samples = 1000
 
 # model
 batch_size = 16
