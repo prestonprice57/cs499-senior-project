@@ -26,7 +26,6 @@ batch_size = 16
 nb_runs = 5
 nb_epoch = 10
 aug = True
-dropout = 0.05
 clip = 0.01
 use_val = False
 num_models = len(os.walk(saved_model_path).next()[2])
@@ -36,7 +35,7 @@ size=(270, 378)
 
 
 start = 0
-end = 15
+end = 9
 nb_runs = (end-start)+1
 nb_augs = 8
 
