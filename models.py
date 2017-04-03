@@ -114,9 +114,9 @@ class Vgg16BN():
 
     def get_datagen(self, aug=False):
         if aug:
-            return ImageDataGenerator(featurewise_center=True, featurewise_std_normalization=True, rotation_range=30, 
-                                      width_shift_range=0.2, zoom_range=0.15,
-                                      channel_shift_range=20, height_shift_range=0.2, shear_range=0.2,
+            return ImageDataGenerator(featurewise_center=True, rotation_range=10, 
+                                      width_shift_range=0.1, zoom_range=0.1,
+                                      channel_shift_range=10, height_shift_range=0.1, shear_range=0.1,
                                       horizontal_flip=True)
         return ImageDataGenerator()
 

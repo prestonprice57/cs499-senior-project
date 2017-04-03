@@ -26,10 +26,10 @@ classes = ["ALB", "BET", "DOL", "LAG", "NoF", "OTHER", "SHARK", "YFT"]
 nb_classes = len(classes)
 
 # model
-nb_runs = 5
+nb_runs = 16
 nb_epoch = 10
 aug = True 
-dropout = 0.3
+dropout = 0.4
 clip = 0.01
 use_val = False
 num_models = len(os.walk(saved_model_path).next()[2])
@@ -80,7 +80,7 @@ def predict():
     del vgg.model, vgg.history, vgg, model
     gc.collect()
 
-for i in xrange(8):
+for i in xrange(nb_runs):
     print "Creating model " + str(num_models) + " \n"
     train()
     num_models+=1

@@ -35,7 +35,7 @@ nb_classes = len(classes)
 
 
 start = 0
-end = 7
+end = 15
 nb_runs = (end-start)+1
 nb_augs = 8
 
