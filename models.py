@@ -120,7 +120,7 @@ class Vgg16BN():
                                       horizontal_flip=True)
         return ImageDataGenerator()
 
-    def fit_val(self, trn_path, val_path, nb_trn_samples, nb_val_samples, nb_epoch=1, callbacks=[], aug=False):
+    def fit_val(self, trn_path, val_path, nb_trn_samples, nb_val_samples, nb_epoch=1, callbacks=[], aug=False, class_weight=[]):
         """Custom fit method for training with validation data and option for data augmentation"""
         train_datagen = self.get_datagen(aug=aug)
         trn_gen = train_datagen.flow_from_directory(trn_path, target_size=self.size, batch_size=self.batch_size,
@@ -128,15 +128,16 @@ class Vgg16BN():
         val_gen = ImageDataGenerator().flow_from_directory(val_path, target_size=self.size, batch_size=self.batch_size,
                                                            class_mode='categorical', shuffle=True)
         self.history = self.model.fit_generator(trn_gen, steps_per_epoch=(nb_trn_samples/self.batch_size)+1, epochs=nb_epoch, verbose=2,
-                                 validation_data=val_gen, validation_steps=nb_val_samples)
+                                 validation_data=val_gen, validation_steps=nb_val_samples, class_weight=class_weight)
 
 
-    def fit_full(self, trn_path, nb_trn_samples, nb_epoch=1, callbacks=[], aug=False):
+    def fit_full(self, trn_path, nb_trn_samples, nb_epoch=1, callbacks=[], aug=False, class_weight=[]):
         """Custom fit method for training without validation data and option for data augmentation"""
         train_datagen = self.get_datagen(aug=aug)
         trn_gen = train_datagen.flow_from_directory(trn_path, target_size=self.size, batch_size=self.batch_size,
                                                     class_mode='categorical', shuffle=True)
-        self.history = self.model.fit_generator(trn_gen, steps_per_epoch=(nb_trn_samples/self.batch_size)+1, epochs=nb_epoch, verbose=2)
+        self.history = self.model.fit_generator(trn_gen, steps_per_epoch=(nb_trn_samples/self.batch_size)+1, epochs=nb_epoch, verbose=2,
+                                            class_weight=class_weight)
 
     def test(self, test_path, nb_test_samples, aug=False):
         """Custom prediction method with option for data augmentation"""

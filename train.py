@@ -12,21 +12,21 @@ from models import Vgg16BN
 
 HOME_DIR = expanduser("~")
 
-train_path = HOME_DIR + '/train/'
+train_path = HOME_DIR + '/train-less/'
 test_path = HOME_DIR + '/test/'
 saved_model_path = HOME_DIR + '/saved-models/'
 saved_pred_path = HOME_DIR + '/saved-preds/'
 # data
 batch_size = 16
 nb_split_train_samples = 3377
-nb_full_train_samples = 3777
+nb_full_train_samples = 2777#3777
 nb_valid_samples = 600
 nb_test_samples = 1000
 classes = ["ALB", "BET", "DOL", "LAG", "NoF", "OTHER", "SHARK", "YFT"]
 nb_classes = len(classes)
 
 # model
-nb_runs = 16
+nb_runs = 8
 nb_epoch = 10
 aug = True 
 dropout = 0.0
@@ -35,6 +35,7 @@ use_val = False
 num_models = len(os.walk(saved_model_path).next()[2])
 num_preds = len(os.walk(saved_pred_path).next()[2])
 size=(270, 378)
+class_weight = {0:0.65, 1:2.325, 2:3.97, 3:6.94, 4:1, 5:1.55, 6:2.64, 7:0.63}
 
 def train():
     vgg = Vgg16BN(size=size, n_classes=nb_classes, lr=1.0, batch_size=batch_size, dropout=dropout)
@@ -44,7 +45,7 @@ def train():
     # ckpt = ModelCheckpoint(filepath=model_fn, monitor='val_loss',
     #                            save_best_only=True, save_weights_only=True)
 
-    vgg.fit_full(train_path, nb_trn_samples=nb_full_train_samples, nb_epoch=nb_epoch, aug=aug)
+    vgg.fit_full(train_path, nb_trn_samples=nb_full_train_samples, nb_epoch=nb_epoch, aug=aug, class_weight=class_weight)
 
     model_fn = saved_model_path + 'model' +  str(num_models) + '.h5'
     vgg.model.save(model_fn)
