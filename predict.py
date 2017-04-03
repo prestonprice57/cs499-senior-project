@@ -32,6 +32,7 @@ use_val = False
 num_models = len(os.walk(saved_model_path).next()[2])
 classes = ["ALB", "BET", "DOL", "LAG", "NoF", "OTHER", "SHARK", "YFT"]
 nb_classes = len(classes)
+size=(270, 378)
 
 
 start = 0
@@ -51,7 +52,7 @@ def predict():
 		print('predicting on ' + model_name)
 		model = load_model(model_name)
 
-		vgg = Vgg16BN()
+		vgg = Vgg16BN(size=size)
 		vgg.model = model
 
 		predictions_mod = np.zeros((nb_test_samples, nb_classes))
