@@ -12,7 +12,7 @@ from models import Vgg16BN
 
 HOME_DIR = expanduser("~")
 
-train_path = HOME_DIR + '/train-less/'
+train_path = HOME_DIR + '/train/'
 train_val_path = HOME_DIR + '/train-with-valid/'
 val_path = HOME_DIR + '/valid/'
 test_path = HOME_DIR + '/test/'
@@ -37,7 +37,7 @@ use_val = False
 num_models = len(os.walk(saved_model_path).next()[2])
 num_preds = len(os.walk(saved_pred_path).next()[2])
 size=(224, 224)
-class_weight = {0:0.65, 1:2.325, 2:3.97, 3:6.94, 4:1, 5:1.55, 6:2.64, 7:0.63}
+class_weight = {0:0.27, 1:2.325, 2:3.97, 3:6.94, 4:1, 5:1.55, 6:2.64, 7:0.63}
 
 def train():
     vgg = Vgg16BN(size=size, n_classes=nb_classes, lr=1.0, batch_size=batch_size, dropout=dropout)
