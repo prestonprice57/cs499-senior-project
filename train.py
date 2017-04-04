@@ -33,11 +33,11 @@ nb_epoch = 10
 aug = True 
 dropout = 0.0
 clip = 0.01
-use_val = True
+use_val = False
 num_models = len(os.walk(saved_model_path).next()[2])
 num_preds = len(os.walk(saved_pred_path).next()[2])
 size=(224, 224)
-class_weight = {0:0.27, 1:2.325, 2:3.97, 3:6.94, 4:1, 5:1.55, 6:2.64, 7:0.63}
+class_weight = {0:1, 1:8.595, 2:14.69, 3:25.66, 4:3.697, 5:5.75, 6:9.77, 7:2.34}
 
 def train():
     vgg = Vgg16BN(size=size, n_classes=nb_classes, lr=1.0, batch_size=batch_size, dropout=dropout)
