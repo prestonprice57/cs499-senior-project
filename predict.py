@@ -31,7 +31,7 @@ use_val = False
 num_models = len(os.walk(saved_model_path).next()[2])
 classes = ["ALB", "BET", "DOL", "LAG", "NoF", "OTHER", "SHARK", "YFT"]
 nb_classes = len(classes)
-size=(270, 378)
+size=(224, 224)
 
 
 start = 0
