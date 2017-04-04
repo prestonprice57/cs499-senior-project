@@ -46,7 +46,7 @@ vgg = None
 
 def predict():
     f_names = []
-    predictions_full = np.zeros((nb_test_samples, nb_classes))
+    predictions_full = np.zeros((nb_val_samples, nb_classes))
     for i in xrange(start,end+1):
         model_name = saved_model_path + 'model' + str(i) + '.h5'
         print('predicting on ' + model_name)
@@ -55,7 +55,7 @@ def predict():
         vgg = Vgg16BN(size=size)
         vgg.model = model
 
-        predictions_mod = np.zeros((nb_test_samples, nb_classes))
+        predictions_mod = np.zeros((nb_val_samples, nb_classes))
 
         for j in xrange(nb_augs):
             print('augmentation number ' + str(j))      
