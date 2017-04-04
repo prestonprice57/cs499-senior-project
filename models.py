@@ -128,7 +128,7 @@ class Vgg16BN():
         val_gen = ImageDataGenerator().flow_from_directory(val_path, target_size=self.size, batch_size=self.batch_size,
                                                            class_mode='categorical', shuffle=True)
         self.history = self.model.fit_generator(trn_gen, steps_per_epoch=(nb_trn_samples/self.batch_size)+1, epochs=nb_epoch, verbose=2,
-                                 validation_data=val_gen, validation_steps=nb_val_samples, class_weight=class_weight)
+                                 validation_data=val_gen, validation_steps=(nb_val_samples/self.batch_size)+1, class_weight=class_weight)
 
 
     def fit_full(self, trn_path, nb_trn_samples, nb_epoch=1, callbacks=[], aug=False, class_weight=[]):
@@ -145,6 +145,13 @@ class Vgg16BN():
         self.test_gen = self.test_datagen.flow_from_directory(test_path, target_size=self.size, batch_size=self.batch_size,
                                                     class_mode=None, shuffle=False)
         return self.model.predict_generator(self.test_gen, steps=(nb_test_samples/self.batch_size)+1), self.test_gen.filenames
+
+    def evaluate(self, evaluate_path, nb_val_samples, aug=True):
+        val_datagen = self.get_datagen(aug=aug)
+        val_gen = val_datagen.flow_from_directory(evaluate_path, target_size=self.size, batch_size=self.batch_size, 
+                                        class_mode='categorical', shuffle=False)
+
+        return self.model.evaluate_generator(val_gen, steps=(nb_test_samples/self.batch_size)+1), self.test_gen.filenames
 
 
 
