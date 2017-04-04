@@ -35,7 +35,7 @@ size=(224, 224)
 
 
 start = 0
-end = 8
+end = 7
 nb_runs = (end-start)+1
 nb_augs = 8
 

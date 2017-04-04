@@ -20,11 +20,6 @@ from keras import backend as K
 
 K.set_image_dim_ordering('th')
 
-def preprocess(x):
-    px_mean = np.array([123.68, 116.779, 103.939]).reshape((3,1,1))
-    x = x - px_mean
-    return x[:, ::-1] # reverse axis bgr->rgb
-
 
 ######################################### ----- VGG16 MODEL ----- #####################################################
 
@@ -50,7 +45,6 @@ class Vgg16BN():
         Returns stacked model
         """
         model = self.model = Sequential()
-        # model.add(Lambda(preprocess, input_shape=(3,)+self.size, output_shape=(3,)+self.size))
         model.add(ZeroPadding2D((1,1), input_shape=(3,)+self.size))
         model.add(Conv2D(64, (3, 3), activation='relu'))
         model.add(ZeroPadding2D((1,1)))
