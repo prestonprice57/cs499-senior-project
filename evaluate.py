@@ -61,6 +61,7 @@ def predict():
             print('augmentation number ' + str(j))      
             predictions, f_names = vgg.evaluate(val_path, nb_val_samples, aug=aug)
             print predictions
+            print vgg.model.metrics_names
             predictions_mod += predictions
 
         predictions_mod /= nb_augs
