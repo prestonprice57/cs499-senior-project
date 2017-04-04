@@ -48,7 +48,7 @@ def train():
     #                            save_best_only=True, save_weights_only=True)
 
     if use_val:
-        vgg.fit_val(train_path=train_val_path, val_path=val_path, nb_trn_samples=nb_split_train_samples, nb_val_samples=nb_valid_samples,
+        vgg.fit_val(trn_path=train_val_path, val_path=val_path, nb_trn_samples=nb_split_train_samples, nb_val_samples=nb_valid_samples,
                 nb_epoch=nb_epoch, aug=True, class_weight=class_weight)
     else:
         vgg.fit_full(train_path, nb_trn_samples=nb_full_train_samples, nb_epoch=nb_epoch, aug=aug, class_weight=class_weight)
