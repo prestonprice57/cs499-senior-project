@@ -86,6 +86,7 @@ def write(predictions, f_names):
 
 
 preds, f_names = predict()
-write(preds, f_names)
+print preds
+# write(preds, f_names)
 
 
