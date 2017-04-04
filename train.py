@@ -20,8 +20,8 @@ saved_model_path = HOME_DIR + '/saved-models/'
 saved_pred_path = HOME_DIR + '/saved-preds/'
 # data
 batch_size = 16
-nb_split_train_samples = 2457
-nb_full_train_samples = 2777#3777
+nb_split_train_samples = 3457
+nb_full_train_samples = 3777
 nb_valid_samples = 320
 nb_test_samples = 1000
 classes = ["ALB", "BET", "DOL", "LAG", "NoF", "OTHER", "SHARK", "YFT"]

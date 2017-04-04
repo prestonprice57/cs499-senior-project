@@ -151,7 +151,7 @@ class Vgg16BN():
         val_gen = val_datagen.flow_from_directory(evaluate_path, target_size=self.size, batch_size=self.batch_size, 
                                         class_mode='categorical', shuffle=False)
 
-        return self.model.evaluate_generator(val_gen, steps=(nb_val_samples/self.batch_size)+1), self.test_gen.filenames
+        return self.model.evaluate_generator(val_gen, steps=(nb_val_samples/self.batch_size)+1), self.val_gen.filenames
 
 
 
